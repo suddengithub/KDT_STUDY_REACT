@@ -4,14 +4,15 @@ import AxiosApi from "./AxiosApi"; // AxiosApi import
 import PostEditor from "./PostEditor"; // PostEditor import
 
 const PostList = () => {
-  const [posts, setPosts] = useState([]);
-  const [isEditorVisible, setIsEditorVisible] = useState(false);
-  const navigate = useNavigate();
+  const [posts, setPosts] = useState([]); // 게시글 목록 상태
+  const [isEditorVisible, setIsEditorVisible] = useState(false); // 글쓰기 에디터 표시 여부
+  const navigate = useNavigate(); // navigate 함수 사용
 
   useEffect(() => {
+    // 게시글 목록을 불러옵니다.
     AxiosApi.getPosts()
       .then((data) => {
-        setPosts(data);
+        setPosts(data); // 데이터가 잘 왔을 때 상태 업데이트
       })
       .catch((error) => {
         console.error("There was an error fetching the posts!", error);
@@ -19,14 +20,14 @@ const PostList = () => {
   }, []);
 
   const handlePostClick = (id) => {
-    navigate(`/posts/${id}`);
+    navigate(`/posts/${id}`); // 게시글을 클릭하면 상세 페이지로 이동
   };
 
   const handleSavePost = (postData) => {
     AxiosApi.savePost(postData)
       .then((savedPost) => {
-        setPosts([...posts, savedPost]);
-        setIsEditorVisible(false); // 에디터를 숨기고 목록으로 돌아옴
+        setPosts([...posts, savedPost]); // 새로운 글 추가
+        setIsEditorVisible(false); // 글 작성 완료 후 에디터 숨김
       })
       .catch((error) => {
         console.error("Error saving post", error);
