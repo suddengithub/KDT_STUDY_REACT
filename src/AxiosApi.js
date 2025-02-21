@@ -17,7 +17,7 @@ const AxiosApi = {
   // 게시글 저장 함수 (소스코드 블록 포함)
   savePost: async (postData) => {
     try {
-      const response = await axios.post(API_URL, postData); // postTitle, postContent, codeBlocks 전달
+      const response = await axios.post(API_URL, postData); // postData 전송
       return response.data;
     } catch (error) {
       console.error("Error saving post", error);

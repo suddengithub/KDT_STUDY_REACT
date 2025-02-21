@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
 import { Editor } from "@toast-ui/react-editor";
 import "@toast-ui/editor/dist/toastui-editor.css";
+import AxiosApi from "./AxiosApi"; // AxiosApi 임포트
 
 const PostEditor = ({ onSave }) => {
   const editorRef = useRef();
@@ -18,31 +19,49 @@ const PostEditor = ({ onSave }) => {
     setCodeBlocks(updatedBlocks);
   };
 
+  // 언어별 코드 블록 개수 계산
+  const calculateLanguageCounts = () => {
+    const counts = {
+      Java: 0,
+      Python: 0,
+      C: 0,
+      "C++": 0,
+      JavaScript: 0,
+      HTML: 0,
+      CSS: 0,
+    };
+
+    codeBlocks.forEach((block) => {
+      if (counts[block.language] !== undefined) {
+        counts[block.language]++;
+      }
+    });
+
+    return counts;
+  };
+
   // 저장 버튼 클릭 시 처리
   const handleSave = async () => {
     const postTitle = prompt("게시글 제목을 입력하세요");
     const postContent = editorRef.current.getInstance().getMarkdown();
 
+    const languageCounts = calculateLanguageCounts(); // 언어별 코드 블록 개수 계산
+
     const postData = {
       postTitle,
       postContent,
       codeBlocks, // codeBlocks를 그대로 서버에 전달
+      languageCounts, // 언어별 코드 블록 개수 추가
     };
 
     try {
-      const response = await fetch("http://localhost:8111/api/posts", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(postData),
-      });
-
-      if (response.ok) {
+      const response = await AxiosApi.savePost(postData); // AxiosApi의 savePost 함수 사용
+      if (response) {
         alert("게시글이 저장되었습니다.");
-      } else {
-        alert("저장 실패");
       }
     } catch (error) {
-      console.error("Error:", error);
+      console.error("Error saving post", error);
+      alert("저장 실패");
     }
   };
 
