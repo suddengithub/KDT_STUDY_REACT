@@ -34,6 +34,10 @@ const PostList = () => {
       });
   };
 
+  if (!posts.length) {
+    return <div>Loading posts...</div>;
+  }
+
   return (
     <div>
       <h1>게시판 목록</h1>

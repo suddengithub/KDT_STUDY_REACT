@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import AxiosApi from "./AxiosApi"; // AxiosApi import
 
@@ -11,9 +11,7 @@ const PostDetail = () => {
     AxiosApi.getPostById(postId)
       .then((response) => {
         // API 응답이 왔을 때 post 데이터 상태 설정
-        if (response) {
-          setPost(response); // 서버에서 받은 데이터를 상태로 업데이트
-        }
+        setPost(response);
       })
       .catch((error) => {
         console.error("There was an error fetching the post!", error);
@@ -26,6 +24,18 @@ const PostDetail = () => {
     <div>
       <h1>{post.postTitle}</h1> {/* 게시글 제목 표시 */}
       <p>{post.postContent}</p> {/* 게시글 내용 표시 */}
+      {/* 소스코드 블록 표시 */}
+      {post.codeBlocks && post.codeBlocks.length > 0 && (
+        <div>
+          <h2>코드 블록</h2>
+          {post.codeBlocks.map((block, index) => (
+            <div key={index}>
+              <h3>{block.language}</h3>
+              <pre>{block.code}</pre>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };
