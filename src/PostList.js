@@ -19,8 +19,8 @@ const PostList = () => {
       });
   }, []);
 
-  const handlePostClick = (id) => {
-    navigate(`/posts/${id}`); // 게시글을 클릭하면 상세 페이지로 이동
+  const handlePostClick = (postId) => {
+    navigate(`/posts/${postId}`); // 게시글을 클릭하면 상세 페이지로 이동
   };
 
   const handleSavePost = (postData) => {
@@ -43,8 +43,8 @@ const PostList = () => {
       ) : (
         <ul>
           {posts.map((post) => (
-            <li key={post.id} onClick={() => handlePostClick(post.id)}>
-              {post.title}
+            <li key={post.postId} onClick={() => handlePostClick(post.postId)}>
+              {post.postTitle}
             </li>
           ))}
         </ul>

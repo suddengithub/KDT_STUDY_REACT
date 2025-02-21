@@ -7,10 +7,10 @@ const PostEditor = ({ onSave }) => {
 
   const handleSave = () => {
     const markdownContent = editorRef.current.getInstance().getMarkdown();
-    const title = prompt("게시글 제목을 입력하세요"); // 제목을 사용자가 입력하도록 함
+    const postTitle = prompt("게시글 제목을 입력하세요"); // 제목을 사용자가 입력하도록 함
 
     // 마크다운 내용과 제목을 서버에 저장
-    onSave({ title, content: markdownContent });
+    onSave({ postTitle, postContent: markdownContent }); // postTitle과 postContent로 변경
   };
 
   return (
