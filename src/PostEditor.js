@@ -81,7 +81,7 @@ const PostEditor = ({ onSave }) => {
       {/* 제목 입력 필드 */}
       <input
         type="text"
-        placeholder="게시글 제목을 입력하세요"
+        placeholder="제목을 입력해 주세요."
         value={postTitle}
         onChange={(e) => setPostTitle(e.target.value)}
         style={{
@@ -95,7 +95,7 @@ const PostEditor = ({ onSave }) => {
       />
 
       <Editor
-        initialValue="여기에 게시글을 작성하세요"
+        initialValue="내용을 입력해 주세요."
         previewStyle="vertical"
         height="500px"
         initialEditType="wysiwyg"

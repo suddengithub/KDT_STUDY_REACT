@@ -27,7 +27,6 @@ const PostDetail = () => {
       {/* 소스코드 블록 표시 */}
       {post.codeBlocks && post.codeBlocks.length > 0 && (
         <div>
-          <h2>코드 블록</h2>
           {post.codeBlocks.map((block, index) => (
             <div key={index}>
               <h3>{block.language}</h3>
