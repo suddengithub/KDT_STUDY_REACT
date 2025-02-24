@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import PostList from "./PostList";
 import PostDetail from "./PostDetail";
+import PostEditor from "./PostEditor"; // PostEditor 임포트
 
 const App = () => {
   return (
@@ -9,6 +10,8 @@ const App = () => {
       <Routes>
         <Route path="/" element={<PostList />} />
         <Route path="/posts/:postId" element={<PostDetail />} />
+        <Route path="/post-editor" element={<PostEditor />} />{" "}
+        {/* 새로운 URL 경로 추가 */}
       </Routes>
     </Router>
   );

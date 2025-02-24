@@ -2,11 +2,13 @@ import React, { useState, useRef } from "react";
 import { Editor } from "@toast-ui/react-editor";
 import "@toast-ui/editor/dist/toastui-editor.css";
 import AxiosApi from "./AxiosApi"; // AxiosApi 임포트
+import { useNavigate } from "react-router-dom"; // useNavigate 훅 임포트
 
 const PostEditor = ({ onSave }) => {
   const editorRef = useRef();
   const [postTitle, setPostTitle] = useState([]);
   const [codeBlocks, setCodeBlocks] = useState([]); // 코드 블록 상태 관리
+  const navigate = useNavigate(); // navigate 훅 초기화
 
   // 소스코드 블록 추가
   const addCodeBlock = () => {
@@ -63,6 +65,7 @@ const PostEditor = ({ onSave }) => {
       const response = await AxiosApi.savePost(postData); // AxiosApi의 savePost 함수 사용
       if (response) {
         alert("게시글이 저장되었습니다.");
+        navigate("/"); // 홈 페이지로 이동
       }
     } catch (error) {
       console.error("Error saving post", error);
