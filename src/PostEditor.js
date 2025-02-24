@@ -5,6 +5,7 @@ import AxiosApi from "./AxiosApi"; // AxiosApi 임포트
 
 const PostEditor = ({ onSave }) => {
   const editorRef = useRef();
+  const [postTitle, setPostTitle] = useState([]);
   const [codeBlocks, setCodeBlocks] = useState([]); // 코드 블록 상태 관리
 
   // 소스코드 블록 추가
@@ -42,10 +43,14 @@ const PostEditor = ({ onSave }) => {
 
   // 저장 버튼 클릭 시 처리
   const handleSave = async () => {
-    const postTitle = prompt("게시글 제목을 입력하세요");
     const postContent = editorRef.current.getInstance().getMarkdown();
 
     const languageCounts = calculateLanguageCounts(); // 언어별 코드 블록 개수 계산
+
+    if (!postTitle.trim()) {
+      alert("제목을 입력하세요!");
+      return;
+    }
 
     const postData = {
       postTitle,
@@ -68,6 +73,23 @@ const PostEditor = ({ onSave }) => {
   return (
     <div>
       <h1>게시글 작성</h1>
+
+      {/* 제목 입력 필드 */}
+      <input
+        type="text"
+        placeholder="게시글 제목을 입력하세요"
+        value={postTitle}
+        onChange={(e) => setPostTitle(e.target.value)}
+        style={{
+          width: "100%",
+          padding: "10px",
+          marginBottom: "10px",
+          fontSize: "16px",
+          border: "1px solid #ccc",
+          borderRadius: "5px",
+        }}
+      />
+
       <Editor
         initialValue="여기에 게시글을 작성하세요"
         previewStyle="vertical"
