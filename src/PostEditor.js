@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom"; // useNavigate 훅 임포트
 
 const PostEditor = ({ onSave }) => {
   const editorRef = useRef();
-  const [postTitle, setPostTitle] = useState([]);
+  const [postTitle, setPostTitle] = useState(""); // 제목을 빈 문자열로 초기화
   const [codeBlocks, setCodeBlocks] = useState([]); // 코드 블록 상태 관리
   const navigate = useNavigate(); // navigate 훅 초기화
 
@@ -45,14 +45,15 @@ const PostEditor = ({ onSave }) => {
 
   // 저장 버튼 클릭 시 처리
   const handleSave = async () => {
-    const postContent = editorRef.current.getInstance().getMarkdown();
-
-    const languageCounts = calculateLanguageCounts(); // 언어별 코드 블록 개수 계산
-
+    // 제목이 빈 문자열이면 저장을 중지
     if (!postTitle.trim()) {
       alert("제목을 입력하세요!");
       return;
     }
+
+    const postContent = editorRef.current.getInstance().getMarkdown();
+
+    const languageCounts = calculateLanguageCounts(); // 언어별 코드 블록 개수 계산
 
     const postData = {
       postTitle,
