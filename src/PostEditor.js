@@ -121,6 +121,7 @@ const PostEditor = () => {
       />
       {/* Editor Placeholder */}
       {/* Editor Placeholder */}
+      {/* Editor Placeholder */}
       <div style={{ position: "relative" }}>
         {isEditorEmpty && (
           <div
