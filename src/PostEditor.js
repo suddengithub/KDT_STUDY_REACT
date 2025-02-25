@@ -8,20 +8,7 @@ const PostEditor = () => {
   const editorRef = useRef();
   const [postTitle, setPostTitle] = useState("");
   const [codeBlocks, setCodeBlocks] = useState([]);
-  const [isEditorEmpty, setIsEditorEmpty] = useState(true);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const editorInstance = editorRef.current.getInstance();
-
-    const handleEditorChange = () => {
-      const content = editorInstance.getMarkdown().trim();
-      setIsEditorEmpty(content.length === 0);
-    };
-
-    editorInstance.on("change", handleEditorChange);
-    return () => editorInstance.off("change", handleEditorChange);
-  }, []);
 
   const addCodeBlock = () => {
     setCodeBlocks((prevBlocks) => [...prevBlocks, { language: "", code: "" }]);
@@ -63,11 +50,6 @@ const PostEditor = () => {
   const handleSave = async () => {
     if (!postTitle.trim()) {
       alert("제목을 입력하세요!");
-      return;
-    }
-
-    if (isEditorEmpty) {
-      alert("내용을 입력하세요!");
       return;
     }
 
@@ -119,32 +101,14 @@ const PostEditor = () => {
           borderRadius: "5px",
         }}
       />
-      {/* Editor Placeholder */}
-      {/* Editor Placeholder */}
-      {/* Editor Placeholder */}
-      <div style={{ position: "relative" }}>
-        {isEditorEmpty && (
-          <div
-            style={{
-              position: "absolute",
-              top: "10px",
-              left: "10px",
-              color: "#aaa",
-              pointerEvents: "none",
-            }}
-          >
-            내용을 입력해 주세요.
-          </div>
-        )}
-
-        <Editor
-          previewStyle="vertical"
-          height="500px"
-          initialEditType="wysiwyg"
-          useCommandShortcut={true}
-          ref={editorRef}
-        />
-      </div>
+      <Editor
+        initialValue="내용을 입력해 주세요."
+        previewStyle="vertical"
+        height="500px"
+        initialEditType="wysiwyg"
+        useCommandShortcut={true}
+        ref={editorRef}
+      />
 
       {/* 소스코드 블록 추가 버튼 */}
       <button
