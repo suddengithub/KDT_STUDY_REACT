@@ -87,7 +87,14 @@ const PostDetail = () => {
         <ul>
           {comments.length > 0 ? (
             comments.map((comment, index) => (
-              <li key={index}>{comment.content}</li>
+              <li key={index}>
+                <p>{comment.content}</p>
+                {/* 댓글 작성 시간 표시 */}
+                <p style={{ fontSize: "0.9em", color: "gray" }}>
+                  {new Date(comment.createdAt).toLocaleString()}{" "}
+                  {/* 날짜 포맷 */}
+                </p>
+              </li>
             ))
           ) : (
             <li>댓글이 없습니다.</li>
