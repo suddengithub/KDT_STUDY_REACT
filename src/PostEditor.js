@@ -119,7 +119,7 @@ const PostEditor = () => {
           borderRadius: "5px",
         }}
       />
-
+      {/* Editor Placeholder */}
       {/* Editor Placeholder */}
       <div style={{ position: "relative" }}>
         {isEditorEmpty && (
