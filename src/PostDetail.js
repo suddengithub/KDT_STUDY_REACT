@@ -9,22 +9,33 @@ const PostDetail = () => {
   const [comments, setComments] = useState([]); // 댓글 목록 상태
   const navigate = useNavigate();
 
+  // 게시글과 댓글을 초기 로딩시 불러오기
   useEffect(() => {
-    // API를 통해 해당 postId로 게시글을 가져옴
+    // 게시글 가져오기
     AxiosApi.getPostById(postId)
       .then((response) => {
         setPost(response);
-        setComments(response.comments || []); // 댓글 목록도 같이 설정
       })
       .catch((error) => {
         console.error("게시글을 불러오는 중 오류 발생!", error);
       });
-  }, [postId]);
 
+    // 댓글 목록 가져오기
+    AxiosApi.getComments(postId)
+      .then((response) => {
+        setComments(response); // 댓글 목록을 상태에 저장
+      })
+      .catch((error) => {
+        console.error("댓글 목록을 불러오는 중 오류 발생!", error);
+      });
+  }, [postId]); // postId가 변경될 때마다 호출
+
+  // 댓글 변경 핸들러
   const handleCommentChange = (e) => {
     setComment(e.target.value); // 댓글 상태 업데이트
   };
 
+  // 댓글 작성 핸들러
   const handleCommentSubmit = () => {
     if (!comment.trim()) {
       alert("댓글을 입력해주세요!");
@@ -37,9 +48,10 @@ const PostDetail = () => {
     };
 
     // 댓글을 서버에 저장하는 API 호출
-    AxiosApi.saveComment(postId, newComment) // postId를 URL에 포함하여 전송
+    AxiosApi.saveComment(postId, newComment)
       .then((savedComment) => {
-        setComments([...comments, savedComment]); // 새로운 댓글을 목록에 추가
+        // 새로운 댓글을 목록에 추가하고 상태 업데이트
+        setComments((prevComments) => [...prevComments, savedComment]);
         setComment(""); // 댓글 입력란 초기화
       })
       .catch((error) => {
@@ -73,9 +85,13 @@ const PostDetail = () => {
       <div>
         <h3>댓글</h3>
         <ul>
-          {comments.map((comment, index) => (
-            <li key={index}>{comment.content}</li>
-          ))}
+          {comments.length > 0 ? (
+            comments.map((comment, index) => (
+              <li key={index}>{comment.content}</li>
+            ))
+          ) : (
+            <li>댓글이 없습니다.</li>
+          )}
         </ul>
       </div>
 

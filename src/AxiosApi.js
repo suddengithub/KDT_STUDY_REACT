@@ -1,7 +1,6 @@
 import axios from "axios";
 
 const API_URL = "http://localhost:8111/api/posts";
-const COMMENT_URL = "http://localhost:8111/api/posts"; // 댓글 관련 URL 수정
 
 const AxiosApi = {
   // 게시글 목록을 가져오는 함수
