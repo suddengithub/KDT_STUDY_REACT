@@ -1,6 +1,7 @@
 import axios from "axios";
 
 const API_URL = "http://localhost:8111/api/posts";
+const COMMENT_URL = "http://localhost:8111/api/posts"; // 댓글 관련 URL 수정
 
 const AxiosApi = {
   // 게시글 목록을 가져오는 함수
@@ -61,6 +62,31 @@ const AxiosApi = {
       return response.data;
     } catch (error) {
       console.error("Error deleting post", error);
+      throw error;
+    }
+  },
+
+  // 댓글 저장 함수
+  saveComment: async (postId, commentData) => {
+    try {
+      const response = await axios.post(
+        `${API_URL}/${postId}/comments`, // 댓글 엔드포인트에 맞게 수정
+        commentData
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error saving comment", error);
+      throw error;
+    }
+  },
+
+  // 게시글의 댓글 목록을 가져오는 함수
+  getComments: async (postId) => {
+    try {
+      const response = await axios.get(`${API_URL}/${postId}/comments`); // 댓글 목록 가져오기
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching comments", error);
       throw error;
     }
   },
