@@ -86,6 +86,22 @@ const PostEditor = () => {
     <div style={{ maxWidth: "800px", margin: "auto", padding: "20px" }}>
       <h1>게시글 작성</h1>
 
+      {/* 뒤로 가기 버튼 */}
+      <button
+        onClick={() => navigate("/")} // 이전 페이지로 돌아가기
+        style={{
+          marginBottom: "20px",
+          padding: "10px 15px",
+          backgroundColor: "#6c757d",
+          color: "white",
+          border: "none",
+          borderRadius: "5px",
+          cursor: "pointer",
+        }}
+      >
+        뒤로 가기
+      </button>
+
       {/* 제목 입력 필드 */}
       <input
         type="text"

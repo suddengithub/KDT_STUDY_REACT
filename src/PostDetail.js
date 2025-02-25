@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import AxiosApi from "./AxiosApi"; // AxiosApi import
 
 const PostDetail = () => {
   const { postId } = useParams(); // URL 파라미터에서 postId를 가져옵니다
   const [post, setPost] = useState(null); // 게시글 상태
+  const navigate = useNavigate();
 
   useEffect(() => {
     // API를 통해 해당 postId로 게시글을 가져옵니다.
@@ -22,6 +23,7 @@ const PostDetail = () => {
 
   return (
     <div>
+      <button onClick={() => navigate("/")}> 뒤로 가기 </button>
       <h1>{post.postTitle}</h1> {/* 게시글 제목 표시 */}
       <p>{post.postContent}</p> {/* 게시글 내용 표시 */}
       {/* 소스코드 블록 표시 */}
