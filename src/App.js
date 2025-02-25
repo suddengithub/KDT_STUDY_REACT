@@ -10,8 +10,10 @@ const App = () => {
       <Routes>
         <Route path="/" element={<PostList />} />
         <Route path="/posts/:postId" element={<PostDetail />} />
+        <Route path="/post-editor/:postId" element={<PostEditor />} />{" "}
+        {/* 수정 경로 추가 */}
         <Route path="/post-editor" element={<PostEditor />} />{" "}
-        {/* 새로운 URL 경로 추가 */}
+        {/* 새 게시글 작성 경로 추가 */}
       </Routes>
     </Router>
   );

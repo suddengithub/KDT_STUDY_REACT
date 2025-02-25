@@ -40,7 +40,14 @@ const AxiosApi = {
   updatePost: async (postId, updatedData) => {
     try {
       const response = await axios.put(`${API_URL}/${postId}`, updatedData); // postId와 수정된 데이터 전달
-      return response.data;
+
+      if (response.status === 200) {
+        console.log("게시글 수정 성공:", response.data);
+        return response.data; // 수정 성공 시, 서버에서 반환하는 데이터 반환
+      } else {
+        console.error("게시글 수정 실패: 상태 코드", response.status);
+        throw new Error("게시글 수정 실패");
+      }
     } catch (error) {
       console.error("Error updating post", error);
       throw error;

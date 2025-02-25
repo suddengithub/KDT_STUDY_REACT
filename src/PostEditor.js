@@ -2,18 +2,33 @@ import React, { useState, useRef, useEffect } from "react";
 import { Editor } from "@toast-ui/react-editor";
 import "@toast-ui/editor/dist/toastui-editor.css";
 import AxiosApi from "./AxiosApi";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const PostEditor = () => {
+  const { postId } = useParams(); // 수정 모드일 경우 postId 가져옴
   const editorRef = useRef();
   const [postTitle, setPostTitle] = useState("");
   const [codeBlocks, setCodeBlocks] = useState([]);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if (postId) {
+      // 기존 게시글 데이터 불러오기 (수정 모드)
+      AxiosApi.getPostById(postId)
+        .then((response) => {
+          setPostTitle(response.postTitle);
+          setCodeBlocks(response.codeBlocks || []);
+          editorRef.current.getInstance().setMarkdown(response.postContent);
+        })
+        .catch((error) => {
+          console.error("게시글을 불러오는 중 오류 발생!", error);
+        });
+    }
+  }, [postId]);
+
   const addCodeBlock = () => {
     setCodeBlocks((prevBlocks) => [...prevBlocks, { language: "", code: "" }]);
 
-    // 자동 스크롤
     setTimeout(() => {
       window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
     }, 100);
@@ -71,22 +86,26 @@ const PostEditor = () => {
     };
 
     try {
-      const response = await AxiosApi.savePost(postData);
-      if (response) {
+      if (postId) {
+        // 기존 게시글 수정
+        await AxiosApi.updatePost(postId, postData);
+        alert("게시글이 수정되었습니다.");
+      } else {
+        // 새 게시글 작성
+        await AxiosApi.savePost(postData);
         alert("게시글이 저장되었습니다.");
-        navigate("/");
       }
+      navigate("/");
     } catch (error) {
-      console.error("Error saving post", error);
+      console.error("게시글 저장 중 오류 발생", error);
       alert("저장 실패");
     }
   };
 
   return (
     <div style={{ maxWidth: "800px", margin: "auto", padding: "20px" }}>
-      {/* 뒤로 가기 버튼 */}
       <button
-        onClick={() => navigate("/")} // 이전 페이지로 돌아가기
+        onClick={() => navigate("/")}
         style={{
           marginBottom: "20px",
           padding: "10px 15px",
@@ -100,7 +119,6 @@ const PostEditor = () => {
         뒤로 가기
       </button>
 
-      {/* 제목 입력 필드 */}
       <input
         type="text"
         placeholder="제목을 입력해 주세요."
@@ -124,7 +142,6 @@ const PostEditor = () => {
         ref={editorRef}
       />
 
-      {/* 소스코드 블록 추가 버튼 */}
       <button
         onClick={addCodeBlock}
         style={{
@@ -140,7 +157,6 @@ const PostEditor = () => {
         + 소스코드 추가
       </button>
 
-      {/* 코드 블록 목록 */}
       {codeBlocks.map((block, index) => (
         <div
           key={index}
@@ -188,7 +204,6 @@ const PostEditor = () => {
         </div>
       ))}
 
-      {/* 저장 버튼 */}
       <button
         onClick={handleSave}
         style={{
@@ -203,7 +218,7 @@ const PostEditor = () => {
           width: "100%",
         }}
       >
-        저장
+        {postId ? "수정 완료" : "저장"}
       </button>
     </div>
   );
