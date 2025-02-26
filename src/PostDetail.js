@@ -104,20 +104,21 @@ const PostDetail = () => {
 };
 
 const styles = {
-  container: {
-    maxWidth: "800px",
-    margin: "auto",
-    padding: "20px",
-    textAlign: "center",
-  },
   backButton: {
-    marginBottom: "20px",
+    display: "block", // 줄바꿈 적용
     padding: "10px 15px",
     backgroundColor: "#6c757d",
     color: "white",
     border: "none",
     borderRadius: "5px",
     cursor: "pointer",
+    marginBottom: "20px", // 아래 요소와 간격 조정
+  },
+  container: {
+    maxWidth: "800px",
+    margin: "auto",
+    padding: "20px",
+    textAlign: "center",
   },
   postContainer: {
     padding: "20px",
