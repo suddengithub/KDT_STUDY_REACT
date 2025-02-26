@@ -43,6 +43,12 @@ const PostDetail = () => {
 
   if (!post) return <div style={styles.loading}>Loading...</div>;
 
+  // 게시글 작성 시간 포맷 처리 (LocalDateTime -> Date 객체로 변환 후 포맷)
+  const formattedPostDate = new Date(post.postCreatedAt); // LocalDateTime 형식이므로 Date 객체로 변환
+  const postDateString = !isNaN(formattedPostDate)
+    ? formattedPostDate.toLocaleString() // 유효한 날짜라면 포맷 적용
+    : "작성일 정보 없음"; // 유효하지 않으면 기본 텍스트 출력
+
   return (
     <div style={styles.container}>
       <button onClick={() => navigate("/")} style={styles.backButton}>
@@ -52,6 +58,9 @@ const PostDetail = () => {
       <div style={styles.postContainer}>
         <h1 style={styles.title}>{post.postTitle}</h1>
         <p style={styles.content}>{post.postContent}</p>
+
+        {/* 게시글 작성 시간 출력 */}
+        <p style={styles.postDate}>{postDateString}</p>
 
         {post.codeBlocks?.length > 0 && (
           <div style={styles.codeContainer}>
@@ -76,14 +85,19 @@ const PostDetail = () => {
         <h3>댓글</h3>
         <ul style={styles.commentList}>
           {comments.length > 0 ? (
-            comments.map((comment, index) => (
-              <li key={index} style={styles.commentItem}>
-                <p>{comment.content}</p>
-                <p style={styles.commentDate}>
-                  {new Date(comment.createdAt).toLocaleString()}
-                </p>
-              </li>
-            ))
+            comments.map((comment, index) => {
+              const formattedCommentDate = new Date(comment.createdAt);
+              const commentDateString = !isNaN(formattedCommentDate)
+                ? formattedCommentDate.toLocaleString()
+                : "작성일 정보 없음"; // 유효하지 않으면 기본 텍스트 출력
+
+              return (
+                <li key={index} style={styles.commentItem}>
+                  <p>{comment.content}</p>
+                  <p style={styles.commentDate}>{commentDateString}</p>
+                </li>
+              );
+            })
           ) : (
             <li style={styles.noComment}>댓글이 없습니다.</li>
           )}
@@ -135,6 +149,11 @@ const styles = {
   content: {
     fontSize: "16px",
     lineHeight: "1.6",
+  },
+  postDate: {
+    fontSize: "14px",
+    color: "gray",
+    marginTop: "10px",
   },
   codeContainer: {
     marginTop: "20px",
