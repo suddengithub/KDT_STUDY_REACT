@@ -10,6 +10,7 @@ const PostDetail = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    // 게시글과 댓글 데이터 불러오기
     AxiosApi.getPostById(postId)
       .then((response) => setPost(response))
       .catch((error) =>
@@ -36,7 +37,7 @@ const PostDetail = () => {
     AxiosApi.saveComment(postId, newComment)
       .then((savedComment) => {
         setComments((prevComments) => [...prevComments, savedComment]);
-        setComment("");
+        setComment(""); // 댓글 작성 후 입력창 비우기
       })
       .catch((error) => console.error("댓글을 작성하는 중 오류 발생!", error));
   };
@@ -82,7 +83,7 @@ const PostDetail = () => {
       </div>
 
       <div style={styles.commentSection}>
-        <h3>댓글</h3>
+        <h3>댓글 ({comments.length})</h3> {/* 댓글 수 표시 */}
         <ul style={styles.commentList}>
           {comments.length > 0 ? (
             comments.map((comment, index) => {
@@ -102,7 +103,6 @@ const PostDetail = () => {
             <li style={styles.noComment}>댓글이 없습니다.</li>
           )}
         </ul>
-
         <textarea
           value={comment}
           onChange={handleCommentChange}

@@ -10,6 +10,7 @@ const PostList = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [totalElements, setTotalElements] = useState(0);
   const [pageSize, setPageSize] = useState(10);
+  const [commentCounts, setCommentCounts] = useState({}); // 댓글 수를 저장할 상태
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -20,9 +21,32 @@ const PostList = () => {
         setTotalElements(data.totalElements);
       })
       .catch((error) => {
-        console.error("There was an error fetching the posts!", error);
+        console.error("게시글을 불러오는 중 오류 발생!", error);
       });
   }, [page, pageSize]);
+
+  useEffect(() => {
+    // 게시글의 댓글 수를 비동기적으로 가져옴
+    const fetchCommentCounts = async () => {
+      const counts = {};
+      for (const post of posts) {
+        try {
+          const commentCount = await AxiosApi.getComments(post.postId);
+          counts[post.postId] = commentCount.length;
+        } catch (error) {
+          console.error(
+            `댓글 수를 불러오는 중 오류 발생: ${post.postId}`,
+            error
+          );
+        }
+      }
+      setCommentCounts(counts);
+    };
+
+    if (posts.length > 0) {
+      fetchCommentCounts();
+    }
+  }, [posts]);
 
   const handlePostClick = (postId) => {
     navigate(`/posts/${postId}`);
@@ -47,6 +71,8 @@ const PostList = () => {
           const postDateString = !isNaN(formattedPostDate)
             ? formattedPostDate.toLocaleString()
             : "작성일 정보 없음";
+          const commentCount = commentCounts[post.postId] || 0;
+
           return (
             <li
               key={post.postId}
@@ -55,6 +81,7 @@ const PostList = () => {
             >
               <h2 className="postTitle">{post.postTitle}</h2>
               <p className="postDate">{postDateString}</p>
+              <p className="commentCount">댓글 {commentCount}개</p>
               <hr className="divider" />
             </li>
           );

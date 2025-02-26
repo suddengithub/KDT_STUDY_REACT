@@ -64,6 +64,13 @@
   margin: 0;
 }
 
+/* 댓글 수 스타일 */
+.commentCount {
+  font-size: 14px;
+  color: #007bff;
+  margin-top: 5px;
+}
+
 /* 구분선 스타일 */
 .divider {
   margin-top: 10px;
