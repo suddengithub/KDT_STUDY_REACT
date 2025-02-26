@@ -131,6 +131,28 @@ const AxiosApi = {
       throw error;
     }
   },
+
+  // 게시글 좋아요 증가
+  likePost: async (postId) => {
+    try {
+      const response = await axios.post(`${API_URL}/${postId}/like`);
+      return response.data; // 좋아요 증가 후 게시글 데이터 반환
+    } catch (error) {
+      console.error("Error liking post", error);
+      throw error;
+    }
+  },
+
+  // 게시글 좋아요 취소 (unlike)
+  unlikePost: async (postId) => {
+    try {
+      const response = await axios.post(`${API_URL}/${postId}/unlike`);
+      return response.data; // 좋아요 취소 후 게시글 데이터 반환
+    } catch (error) {
+      console.error("Error unliking post", error);
+      throw error;
+    }
+  },
 };
 
 export default AxiosApi;

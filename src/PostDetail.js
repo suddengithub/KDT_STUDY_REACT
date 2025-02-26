@@ -42,6 +42,24 @@ const PostDetail = () => {
       .catch((error) => console.error("댓글을 작성하는 중 오류 발생!", error));
   };
 
+  const handleLike = () => {
+    AxiosApi.likePost(postId)
+      .then((updatedPost) => {
+        setPost(updatedPost); // 좋아요를 누른 후 게시글 업데이트
+      })
+      .catch((error) =>
+        console.error("좋아요를 등록하는 중 오류 발생!", error)
+      );
+  };
+
+  const handleUnlike = () => {
+    AxiosApi.unlikePost(postId)
+      .then((updatedPost) => {
+        setPost(updatedPost); // 좋아요를 취소한 후 게시글 업데이트
+      })
+      .catch((error) => console.error("좋아요 취소하는 중 오류 발생!", error));
+  };
+
   if (!post) return <div style={styles.loading}>Loading...</div>;
 
   // 게시글 작성 시간 포맷 처리 (LocalDateTime -> Date 객체로 변환 후 포맷)
@@ -62,6 +80,18 @@ const PostDetail = () => {
 
         {/* 게시글 작성 시간 출력 */}
         <p style={styles.postDate}>{postDateString}</p>
+
+        {/* 좋아요 갯수 출력 */}
+        <div style={styles.likesContainer}>
+          <span>좋아요 {post.likesCount}</span>{" "}
+          {/* likesCount로 좋아요 갯수 표시 */}
+          <button onClick={handleLike} style={styles.likeButton}>
+            좋아요
+          </button>
+          <button onClick={handleUnlike} style={styles.unlikeButton}>
+            좋아요 취소
+          </button>
+        </div>
 
         {post.codeBlocks?.length > 0 && (
           <div style={styles.codeContainer}>
@@ -154,6 +184,26 @@ const styles = {
     fontSize: "14px",
     color: "gray",
     marginTop: "10px",
+  },
+  likesContainer: {
+    marginTop: "20px",
+  },
+  likeButton: {
+    padding: "5px 10px",
+    backgroundColor: "#28A745",
+    color: "white",
+    border: "none",
+    borderRadius: "5px",
+    cursor: "pointer",
+  },
+  unlikeButton: {
+    padding: "5px 10px",
+    backgroundColor: "#dc3545",
+    color: "white",
+    border: "none",
+    borderRadius: "5px",
+    cursor: "pointer",
+    marginLeft: "10px",
   },
   codeContainer: {
     marginTop: "20px",
