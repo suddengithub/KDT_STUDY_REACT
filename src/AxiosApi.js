@@ -3,11 +3,21 @@ import axios from "axios";
 const API_URL = "http://localhost:8111/api/posts";
 
 const AxiosApi = {
-  // 게시글 목록을 가져오는 함수
-  getPosts: async () => {
+  // 게시글 목록을 가져오는 함수 (페이지네이션 적용)
+  getPosts: async ({ page, size }) => {
     try {
-      const response = await axios.get(API_URL);
-      return response.data;
+      const response = await axios.get(API_URL, {
+        params: { page: page - 1, size }, // 페이지는 0부터 시작하므로 -1을 해줍니다.
+      });
+
+      // 서버에서 반환된 데이터 구조: posts, totalPages, totalElements, pageNumber, pageSize
+      return {
+        posts: response.data.content, // 게시글 목록
+        totalPages: response.data.totalPages, // 전체 페이지 수
+        totalElements: response.data.totalElements, // 전체 게시글 수
+        pageNumber: response.data.pageNumber, // 현재 페이지 번호
+        pageSize: response.data.pageSize, // 한 페이지에 보여줄 게시글 수
+      };
     } catch (error) {
       console.error("Error fetching posts", error);
       throw error;

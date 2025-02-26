@@ -1,0 +1,129 @@
+/* 전체 컨테이너 */
+.container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 20px;
+  text-align: center;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* 헤더 스타일 */
+.header {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* 새 게시글 작성 버튼 */
+.newPostButton {
+  padding: 12px 20px;
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 30px;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+/* 게시글 리스트 스타일 */
+.postList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* 게시글 항목 스타일 */
+.postItem {
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border: 1px solid #e0e0e0;
+}
+
+/* 게시글 제목 스타일 */
+.postTitle {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0 0 10px;
+  color: #333;
+}
+
+/* 게시글 날짜 스타일 */
+.postDate {
+  font-size: 14px;
+  color: gray;
+  margin: 0;
+}
+
+/* 구분선 스타일 */
+.divider {
+  margin-top: 10px;
+  border-top: 1px solid #ddd;
+}
+
+/* 페이지네이션 컨테이너 */
+.paginationContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+/* 전체 게시글 수 표시 */
+.totalPosts {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+/* 페이지네이션 스타일 */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  width: 100%;
+}
+
+/* 페이지 버튼 스타일 */
+.page {
+  padding: 8px 16px;
+  margin: 0 5px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  background-color: #f0f0f0;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+/* 활성화된 페이지 버튼 스타일 */
+.active {
+  background-color: #007bff;
+  color: #fff;
+  transform: scale(1.1);
+}
+
+/* 이전 페이지 버튼 */
+.previous,
+.next {
+  padding: 8px 16px;
+  margin: 0 5px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  background-color: #f0f0f0;
+}
+
+/* hover 효과 */
+.page:hover {
+  background-color: #ddd;
+}
