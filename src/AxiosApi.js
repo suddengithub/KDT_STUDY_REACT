@@ -159,6 +159,49 @@ const AxiosApi = {
       throw error;
     }
   },
+
+  // 댓글 수정 함수
+  updateComment: async (postId, commentId, commentData) => {
+    if (!commentId) {
+      console.error("Invalid comment ID:", commentId);
+      throw new Error("Invalid comment ID");
+    }
+
+    try {
+      const response = await axios.put(
+        `${API_URL}/${postId}/comments/${commentId}`,
+        commentData
+      );
+      return response.data; // 수정된 댓글 데이터 반환
+    } catch (error) {
+      console.error("Error updating comment", error);
+      throw error;
+    }
+  },
+
+  // 댓글 삭제 함수
+  deleteComment: async (postId, commentId) => {
+    if (!commentId) {
+      console.error("Invalid comment ID:", commentId);
+      throw new Error("Invalid comment ID");
+    }
+
+    try {
+      const response = await axios.delete(
+        `${API_URL}/${postId}/comments/${commentId}`
+      );
+      if (response.status === 204) {
+        console.log("댓글 삭제 성공:", commentId);
+        return { message: "댓글 삭제 성공" };
+      } else {
+        console.error("댓글 삭제 실패: 상태 코드", response.status);
+        throw new Error("댓글 삭제 실패");
+      }
+    } catch (error) {
+      console.error("Error deleting comment", error);
+      throw error;
+    }
+  },
 };
 
 export default AxiosApi;

@@ -6,41 +6,42 @@ import "./PostDetail.css"; // CSS 파일 분리
 const PostDetail = () => {
   const { postId } = useParams();
   const [post, setPost] = useState(null);
-  const [likesCount, setLikesCount] = useState(0); // 🔹 좋아요 상태 추가
+  const [likesCount, setLikesCount] = useState(0); // 좋아요 상태
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState([]);
+  const [loading, setLoading] = useState(true); // 로딩 상태
   const navigate = useNavigate();
 
   useEffect(() => {
-    // 게시글 데이터 가져오기
-    AxiosApi.getPostById(postId)
-      .then((response) => {
-        setPost(response);
-        setLikesCount(response.likesCount); // 🔹 초기 좋아요 개수 설정
-      })
-      .catch((error) =>
-        console.error("게시글을 불러오는 중 오류 발생!", error)
-      );
+    const fetchPostData = async () => {
+      try {
+        const postResponse = await AxiosApi.getPostById(postId);
+        setPost(postResponse);
+        setLikesCount(postResponse.likesCount); // 초기 좋아요 개수 설정
 
-    // 댓글 목록 가져오기
-    AxiosApi.getComments(postId)
-      .then((response) => setComments(response))
-      .catch((error) =>
-        console.error("댓글 목록을 불러오는 중 오류 발생!", error)
-      );
+        const commentsResponse = await AxiosApi.getComments(postId);
+        setComments(commentsResponse);
+      } catch (error) {
+        console.error("게시글을 불러오는 중 오류 발생!", error);
+      } finally {
+        setLoading(false); // 로딩 완료
+      }
+    };
+
+    fetchPostData();
   }, [postId]);
 
   // 좋아요 추가
   const handleLike = () => {
     AxiosApi.likePost(postId)
-      .then(() => setLikesCount((prev) => prev + 1)) // 🔹 UI 즉시 업데이트
+      .then(() => setLikesCount((prev) => prev + 1)) // UI 즉시 업데이트
       .catch((error) => console.error("좋아요 추가 중 오류 발생!", error));
   };
 
   // 좋아요 취소
   const handleUnlike = () => {
     AxiosApi.unlikePost(postId)
-      .then(() => setLikesCount((prev) => Math.max(prev - 1, 0))) // 🔹 최소 0 이하로 내려가지 않도록 설정
+      .then(() => setLikesCount((prev) => Math.max(prev - 1, 0))) // 최소 0 이하로 내려가지 않도록 설정
       .catch((error) => console.error("좋아요 취소 중 오류 발생!", error));
   };
 
@@ -64,6 +65,32 @@ const PostDetail = () => {
       .catch((error) => console.error("댓글을 작성하는 중 오류 발생!", error));
   };
 
+  // 댓글 수정 시
+  const handleCommentEdit = (commentId, updatedContent) => {
+    const updatedComment = { content: updatedContent, postId };
+
+    AxiosApi.updateComment(postId, String(commentId), updatedComment)
+      .then((updatedComment) => {
+        setComments((prevComments) =>
+          prevComments.map((comment) =>
+            comment.commentId === commentId ? updatedComment : comment
+          )
+        );
+      })
+      .catch((error) => console.error("댓글 수정 중 오류 발생!", error));
+  };
+
+  // 댓글 삭제 시
+  const handleCommentDelete = (commentId) => {
+    AxiosApi.deleteComment(postId, String(commentId))
+      .then(() => {
+        setComments((prevComments) =>
+          prevComments.filter((comment) => comment.commentId !== commentId)
+        );
+      })
+      .catch((error) => console.error("댓글 삭제 중 오류 발생!", error));
+  };
+
   // 게시글 삭제 처리
   const handleDelete = () => {
     if (window.confirm("정말로 이 게시글을 삭제하시겠습니까?")) {
@@ -76,7 +103,9 @@ const PostDetail = () => {
     }
   };
 
-  if (!post) return <div className="loading">Loading...</div>;
+  if (loading) return <div className="loading">Loading...</div>; // 로딩 상태 표시
+
+  if (!post) return <div className="error">게시글을 찾을 수 없습니다.</div>; // 게시글이 없는 경우 처리
 
   return (
     <div className="container">
@@ -92,7 +121,7 @@ const PostDetail = () => {
         </p>
 
         <div className="likesContainer">
-          <span>좋아요 {likesCount}</span> {/* 🔹 likesCount 상태로 변경 */}
+          <span>좋아요 {likesCount}</span>
           <button className="likeButton" onClick={handleLike}>
             좋아요
           </button>
@@ -119,7 +148,6 @@ const PostDetail = () => {
           수정하기
         </button>
 
-        {/* 삭제 버튼 추가 */}
         <button onClick={handleDelete} className="deleteButton">
           삭제하기
         </button>
@@ -137,6 +165,30 @@ const PostDetail = () => {
                 <li key={index} className="commentItem">
                   <p>{comment.content}</p>
                   <p className="commentDate">{formattedCommentDate}</p>
+
+                  {/* 댓글 수정 및 삭제 기능 */}
+                  <div className="commentActions">
+                    <button
+                      onClick={() => {
+                        const updatedContent = prompt(
+                          "댓글을 수정하세요",
+                          comment.content
+                        );
+                        if (updatedContent) {
+                          handleCommentEdit(comment.commentId, updatedContent);
+                        }
+                      }}
+                      className="editCommentButton"
+                    >
+                      수정
+                    </button>
+                    <button
+                      onClick={() => handleCommentDelete(comment.commentId)}
+                      className="deleteCommentButton"
+                    >
+                      삭제
+                    </button>
+                  </div>
                 </li>
               );
             })
