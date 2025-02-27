@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ReactPaginate from "react-paginate";
 import AxiosApi from "./AxiosApi"; // AxiosApi 임포트
+import "./PostPagination.css";
 
 const PostPagination = () => {
   const [posts, setPosts] = useState([]); // 게시글 목록 상태 (초기값을 빈 배열로 설정)
@@ -25,9 +26,9 @@ const PostPagination = () => {
   };
 
   return (
-    <div style={styles.container}>
-      <h1 style={styles.header}>게시판 목록</h1>
-      <ul style={styles.postList}>
+    <div className="post-container">
+      <h1 className="post-header">게시판 목록</h1>
+      <ul className="post-list">
         {posts.length > 0 ? (
           posts.map((post) => {
             const formattedPostDate = new Date(post.postCreatedAt);
@@ -35,10 +36,10 @@ const PostPagination = () => {
               ? formattedPostDate.toLocaleString()
               : "작성일 정보 없음";
             return (
-              <li key={post.postId} style={styles.postItem}>
-                <h2 style={styles.postTitle}>{post.postTitle}</h2>
-                <p style={styles.postDate}>{postDateString}</p>
-                <hr style={styles.divider} />
+              <li key={post.postId} className="post-item">
+                <h2 className="post-title">{post.postTitle}</h2>
+                <p className="post-date">{postDateString}</p>
+                <hr className="post-divider" />
               </li>
             );
           })
@@ -53,57 +54,16 @@ const PostPagination = () => {
         nextLabel={"다음 →"}
         pageCount={totalPages}
         onPageChange={handlePageChange}
-        containerClassName={"pagination"}
-        activeClassName={"active"}
-        pageClassName={"page"}
-        previousClassName={"previous"}
-        nextClassName={"next"}
+        containerClassName="pagination"
+        activeClassName="active"
+        pageClassName="page"
+        previousClassName="previous"
+        nextClassName="next"
         pageRangeDisplayed={5} // 한 번에 보여주는 페이지 수
         marginPagesDisplayed={2} // 양옆으로 보여주는 페이지 수
       />
     </div>
   );
-};
-
-const styles = {
-  container: {
-    maxWidth: "800px",
-    margin: "auto",
-    padding: "20px",
-    textAlign: "center",
-  },
-  header: {
-    fontSize: "30px",
-    fontWeight: "bold",
-    marginBottom: "30px",
-  },
-  postList: {
-    listStyle: "none",
-    padding: 0,
-  },
-  postItem: {
-    padding: "15px",
-    borderRadius: "10px",
-    backgroundColor: "#f9f9f9",
-    boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-    marginBottom: "20px",
-    cursor: "pointer",
-    transition: "transform 0.2s ease, box-shadow 0.2s ease",
-  },
-  postTitle: {
-    fontSize: "22px",
-    fontWeight: "bold",
-    margin: "0 0 10px",
-  },
-  postDate: {
-    fontSize: "14px",
-    color: "gray",
-    margin: "0",
-  },
-  divider: {
-    marginTop: "10px",
-    borderTop: "1px solid #ddd",
-  },
 };
 
 export default PostPagination;
