@@ -12,6 +12,7 @@ const PostDetail = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    // 게시글 데이터 가져오기
     AxiosApi.getPostById(postId)
       .then((response) => {
         setPost(response);
@@ -21,6 +22,7 @@ const PostDetail = () => {
         console.error("게시글을 불러오는 중 오류 발생!", error)
       );
 
+    // 댓글 목록 가져오기
     AxiosApi.getComments(postId)
       .then((response) => setComments(response))
       .catch((error) =>
@@ -28,20 +30,24 @@ const PostDetail = () => {
       );
   }, [postId]);
 
+  // 좋아요 추가
   const handleLike = () => {
     AxiosApi.likePost(postId)
       .then(() => setLikesCount((prev) => prev + 1)) // 🔹 UI 즉시 업데이트
       .catch((error) => console.error("좋아요 추가 중 오류 발생!", error));
   };
 
+  // 좋아요 취소
   const handleUnlike = () => {
     AxiosApi.unlikePost(postId)
       .then(() => setLikesCount((prev) => Math.max(prev - 1, 0))) // 🔹 최소 0 이하로 내려가지 않도록 설정
       .catch((error) => console.error("좋아요 취소 중 오류 발생!", error));
   };
 
+  // 댓글 입력 값 처리
   const handleCommentChange = (e) => setComment(e.target.value);
 
+  // 댓글 제출 처리
   const handleCommentSubmit = () => {
     if (!comment.trim()) {
       alert("댓글을 입력해주세요!");
@@ -56,6 +62,18 @@ const PostDetail = () => {
         setComment("");
       })
       .catch((error) => console.error("댓글을 작성하는 중 오류 발생!", error));
+  };
+
+  // 게시글 삭제 처리
+  const handleDelete = () => {
+    if (window.confirm("정말로 이 게시글을 삭제하시겠습니까?")) {
+      AxiosApi.deletePost(postId)
+        .then(() => {
+          alert("게시글이 삭제되었습니다.");
+          navigate("/"); // 삭제 후 메인 페이지로 이동
+        })
+        .catch((error) => console.error("게시글 삭제 중 오류 발생!", error));
+    }
   };
 
   if (!post) return <div className="loading">Loading...</div>;
@@ -99,6 +117,11 @@ const PostDetail = () => {
           className="editButton"
         >
           수정하기
+        </button>
+
+        {/* 삭제 버튼 추가 */}
+        <button onClick={handleDelete} className="deleteButton">
+          삭제하기
         </button>
       </div>
 

@@ -1,3 +1,4 @@
+/* 뒤로 가기 버튼 */
 .backButton {
   display: block;
   padding: 10px 15px;
@@ -9,6 +10,7 @@
   margin-bottom: 20px;
 }
 
+/* 전체 컨테이너 */
 .container {
   max-width: 800px;
   margin: auto;
@@ -16,6 +18,7 @@
   text-align: center;
 }
 
+/* 게시글 컨테이너 */
 .postContainer {
   padding: 20px;
   border: 1px solid #ddd;
@@ -24,27 +27,32 @@
   text-align: left;
 }
 
+/* 제목 */
 .title {
   font-size: 24px;
   font-weight: bold;
   margin-bottom: 10px;
 }
 
+/* 내용 */
 .content {
   font-size: 16px;
   line-height: 1.6;
 }
 
+/* 게시글 작성 날짜 */
 .postDate {
   font-size: 14px;
   color: gray;
   margin-top: 10px;
 }
 
+/* 좋아요 컨테이너 */
 .likesContainer {
   margin-top: 20px;
 }
 
+/* 좋아요 버튼 */
 .likeButton {
   padding: 5px 10px;
   background-color: #28a745;
@@ -54,6 +62,7 @@
   cursor: pointer;
 }
 
+/* 좋아요 취소 버튼 */
 .unlikeButton {
   padding: 5px 10px;
   background-color: #dc3545;
@@ -64,10 +73,12 @@
   margin-left: 10px;
 }
 
+/* 코드 블록 컨테이너 */
 .codeContainer {
   margin-top: 20px;
 }
 
+/* 코드 블록 */
 .codeBlock {
   background-color: #272822;
   color: white;
@@ -76,12 +87,14 @@
   margin-top: 10px;
 }
 
+/* 코드 스타일 */
 .code {
   font-family: monospace;
   white-space: pre-wrap;
   word-break: break-word;
 }
 
+/* 수정하기 버튼 */
 .editButton {
   margin-top: 20px;
   padding: 10px 15px;
@@ -94,32 +107,51 @@
   width: 100%;
 }
 
+/* 삭제하기 버튼 */
+.deleteButton {
+  margin-top: 20px;
+  padding: 10px 15px;
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  display: block;
+  width: 100%;
+}
+
+/* 댓글 섹션 */
 .commentSection {
   margin-top: 30px;
   text-align: left;
 }
 
+/* 댓글 리스트 */
 .commentList {
   list-style: none;
   padding: 0;
 }
 
+/* 댓글 아이템 */
 .commentItem {
   padding: 10px;
   border-bottom: 1px solid #ddd;
 }
 
+/* 댓글 날짜 */
 .commentDate {
   font-size: 0.9em;
   color: gray;
 }
 
+/* 댓글이 없을 때 */
 .noComment {
   padding: 10px;
   text-align: center;
   color: gray;
 }
 
+/* 댓글 입력창 */
 .commentInput {
   width: 100%;
   height: 100px;
@@ -129,6 +161,7 @@
   resize: none;
 }
 
+/* 댓글 작성 버튼 */
 .commentButton {
   margin-top: 10px;
   padding: 10px 15px;
@@ -141,6 +174,7 @@
   width: 100%;
 }
 
+/* 로딩 상태 */
 .loading {
   text-align: center;
   font-size: 18px;

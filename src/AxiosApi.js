@@ -67,7 +67,13 @@ const AxiosApi = {
   deletePost: async (postId) => {
     try {
       const response = await axios.delete(`${API_URL}/${postId}`);
-      return response.data;
+      if (response.status === 204) {
+        console.log("게시글 삭제 성공:", postId);
+        return { message: "게시글 삭제 성공" };
+      } else {
+        console.error("게시글 삭제 실패: 상태 코드", response.status);
+        throw new Error("게시글 삭제 실패");
+      }
     } catch (error) {
       console.error("Error deleting post", error);
       throw error;
