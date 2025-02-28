@@ -10,6 +10,7 @@ const PostList = () => {
   const [commentCounts, setCommentCounts] = useState({}); // 댓글 수를 저장할 상태
   const navigate = useNavigate();
 
+  // 게시글 목록을 가져오는 함수
   const fetchPosts = (page, pageSize) => {
     AxiosApi.getPosts({ page, size: pageSize })
       .then((data) => {
@@ -71,7 +72,7 @@ const PostList = () => {
 
       {/* 게시글 목록 */}
       <ul className="postList">
-        {posts.map((post) => {
+        {posts.map((post, index) => {
           const formattedPostDate = new Date(post.postCreatedAt);
           const postDateString = !isNaN(formattedPostDate)
             ? formattedPostDate.toLocaleString()
@@ -84,15 +85,21 @@ const PostList = () => {
               onClick={() => handlePostClick(post.postId)}
               className="postItem"
             >
-              <p className="postDate">{postDateString}</p>{" "}
-              {/* 시간 왼쪽에 배치 */}
-              <h2 className="postTitle">{post.postTitle}</h2>{" "}
-              {/* 제목 가운데 배치 */}
-              <div className="interactionCounts">
-                <p className="commentCount">댓글 {commentCount}개</p>
-                <p className="likeCount">좋아요 {post.likesCount}개</p>
+              <div className="postNumberContainer">
+                <p className="postNumber">번호: {post.postId}</p>{" "}
+                {/* 게시글 번호 */}
               </div>
-              <hr className="divider" />
+              <div className="postContent">
+                <p className="postDate">{postDateString}</p>{" "}
+                {/* 시간 왼쪽에 배치 */}
+                <h2 className="postTitle">{post.postTitle}</h2>{" "}
+                {/* 제목 가운데 배치 */}
+                <div className="interactionCounts">
+                  <p className="commentCount">댓글 {commentCount}개</p>
+                  <p className="likeCount">좋아요 {post.likesCount}개</p>
+                </div>
+                <hr className="divider" />
+              </div>
             </li>
           );
         })}
