@@ -123,6 +123,48 @@ const PostDetail = () => {
       .catch((error) => console.error("대댓글 작성 중 오류 발생!", error));
   };
 
+  // 대댓글 수정 시
+  const handleReplyEdit = (replyId, parentCommentId, updatedContent) => {
+    const updatedReply = { content: updatedContent, postId, parentCommentId };
+
+    AxiosApi.updateComment(postId, String(replyId), updatedReply)
+      .then((updatedReply) => {
+        setComments((prevComments) =>
+          prevComments.map((comment) =>
+            comment.commentId === parentCommentId
+              ? {
+                  ...comment,
+                  replies: comment.replies.map((reply) =>
+                    reply.commentId === replyId ? updatedReply : reply
+                  ),
+                }
+              : comment
+          )
+        );
+      })
+      .catch((error) => console.error("대댓글 수정 중 오류 발생!", error));
+  };
+
+  // 대댓글 삭제 시
+  const handleReplyDelete = (replyId, parentCommentId) => {
+    AxiosApi.deleteComment(postId, String(replyId))
+      .then(() => {
+        setComments((prevComments) =>
+          prevComments.map((comment) =>
+            comment.commentId === parentCommentId
+              ? {
+                  ...comment,
+                  replies: comment.replies.filter(
+                    (reply) => reply.commentId !== replyId
+                  ),
+                }
+              : comment
+          )
+        );
+      })
+      .catch((error) => console.error("대댓글 삭제 중 오류 발생!", error));
+  };
+
   // 대댓글 작성 폼을 표시하거나 숨기는 함수
   const handleReplyClick = (commentId) => {
     setReplyingTo(commentId === replyingTo ? null : commentId);
@@ -261,6 +303,38 @@ const PostDetail = () => {
                             <p className="replyDate">
                               {new Date(reply.createdAt).toLocaleString()}
                             </p>
+                            {/* 대댓글 수정 및 삭제 기능 */}
+                            <div className="commentActions">
+                              <button
+                                onClick={() => {
+                                  const updatedContent = prompt(
+                                    "대댓글을 수정하세요",
+                                    reply.content
+                                  );
+                                  if (updatedContent) {
+                                    handleReplyEdit(
+                                      reply.commentId,
+                                      comment.commentId,
+                                      updatedContent
+                                    );
+                                  }
+                                }}
+                                className="editCommentButton"
+                              >
+                                수정
+                              </button>
+                              <button
+                                onClick={() =>
+                                  handleReplyDelete(
+                                    reply.commentId,
+                                    comment.commentId
+                                  )
+                                }
+                                className="deleteCommentButton"
+                              >
+                                삭제
+                              </button>
+                            </div>
                           </li>
                         ))}
                       </ul>

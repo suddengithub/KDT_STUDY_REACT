@@ -267,3 +267,30 @@
   font-size: 0.9em;
   color: gray;
 }
+
+/* 대댓글 수정 및 삭제 버튼 스타일 */
+.replyActions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+/* 대댓글 수정 버튼 */
+.editReplyButton {
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* 대댓글 삭제 버튼 */
+.deleteReplyButton {
+  padding: 5px 10px;
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
