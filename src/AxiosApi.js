@@ -80,7 +80,7 @@ const AxiosApi = {
     }
   },
 
-  // 댓글 저장 함수
+  // 댓글 저장 함수 (createComment)
   saveComment: async (postId, commentData) => {
     try {
       const response = await axios.post(
@@ -94,17 +94,16 @@ const AxiosApi = {
     }
   },
 
-  // 게시글의 댓글 목록을 가져오는 함수
+  // 게시글의 댓글 목록을 가져오는 함수 (대댓글 포함)
   getComments: async (postId) => {
     try {
       const response = await axios.get(`${API_URL}/${postId}/comments`);
-      return response.data; // CommentResponseDto 형태로 반환될 데이터 처리
+      return response.data; // 댓글 목록과 대댓글 목록 반환
     } catch (error) {
       console.error("Error fetching comments", error);
       throw error;
     }
   },
-
   // 게시글 수정 시, 기존 댓글 수와 코드 블록 갯수 반영 함수
   updatePostWithCommentsAndCodeBlocks: async (postId, updatedData) => {
     try {
@@ -179,7 +178,7 @@ const AxiosApi = {
     }
   },
 
-  // 댓글 삭제 함수
+  // 댓글 삭제 함수 (대댓글 포함)
   deleteComment: async (postId, commentId) => {
     if (!commentId) {
       console.error("Invalid comment ID:", commentId);
@@ -199,6 +198,33 @@ const AxiosApi = {
       }
     } catch (error) {
       console.error("Error deleting comment", error);
+      throw error;
+    }
+  },
+
+  // 대댓글 저장 함수
+  saveReply: async (postId, parentCommentId, replyData) => {
+    try {
+      const response = await axios.post(`${API_URL}/${postId}/comments`, {
+        ...replyData,
+        parentCommentId,
+      });
+      return response.data; // 대댓글 생성 후, 대댓글 데이터 반환
+    } catch (error) {
+      console.error("Error saving reply", error);
+      throw error;
+    }
+  },
+
+  // 대댓글 목록 조회 함수
+  getReplies: async (postId, parentCommentId) => {
+    try {
+      const response = await axios.get(
+        `${API_URL}/${postId}/comments/${parentCommentId}/replies`
+      );
+      return response.data; // 대댓글 목록 반환
+    } catch (error) {
+      console.error("Error fetching replies", error);
       throw error;
     }
   },

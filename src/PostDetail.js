@@ -10,6 +10,8 @@ const PostDetail = () => {
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState([]);
   const [loading, setLoading] = useState(true); // 로딩 상태
+  const [replyComment, setReplyComment] = useState(""); // 대댓글 입력 값
+  const [replyingTo, setReplyingTo] = useState(null); // 어떤 댓글에 대댓글을 다는지 구별
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -89,6 +91,41 @@ const PostDetail = () => {
         );
       })
       .catch((error) => console.error("댓글 삭제 중 오류 발생!", error));
+  };
+
+  // 대댓글 입력 값 처리
+  const handleReplyChange = (e) => setReplyComment(e.target.value);
+
+  // 대댓글 작성 폼 제출 처리
+  const handleReplySubmit = (parentCommentId) => {
+    if (!replyComment.trim()) {
+      alert("대댓글을 입력해주세요!");
+      return;
+    }
+
+    const newReply = { content: replyComment, postId, parentCommentId };
+
+    AxiosApi.saveComment(postId, newReply)
+      .then((savedReply) => {
+        setComments((prevComments) =>
+          prevComments.map((comment) =>
+            comment.commentId === parentCommentId
+              ? {
+                  ...comment,
+                  replies: [...(comment.replies || []), savedReply],
+                }
+              : comment
+          )
+        );
+        setReplyComment("");
+        setReplyingTo(null);
+      })
+      .catch((error) => console.error("대댓글 작성 중 오류 발생!", error));
+  };
+
+  // 대댓글 작성 폼을 표시하거나 숨기는 함수
+  const handleReplyClick = (commentId) => {
+    setReplyingTo(commentId === replyingTo ? null : commentId);
   };
 
   // 게시글 삭제 처리
@@ -188,7 +225,46 @@ const PostDetail = () => {
                     >
                       삭제
                     </button>
+                    <button
+                      onClick={() => handleReplyClick(comment.commentId)}
+                      className="replyCommentButton"
+                    >
+                      대댓글
+                    </button>
                   </div>
+
+                  {/* 대댓글 입력 폼 */}
+                  {replyingTo === comment.commentId && (
+                    <div className="replyForm">
+                      <textarea
+                        value={replyComment}
+                        onChange={handleReplyChange}
+                        placeholder="대댓글을 입력하세요"
+                        className="replyInput"
+                      />
+                      <button
+                        onClick={() => handleReplySubmit(comment.commentId)}
+                        className="replyButton"
+                      >
+                        대댓글 작성
+                      </button>
+                    </div>
+                  )}
+
+                  {/* 대댓글 리스트 */}
+                  {Array.isArray(comment.replies) &&
+                    comment.replies.length > 0 && (
+                      <ul className="replyList">
+                        {comment.replies.map((reply, replyIndex) => (
+                          <li key={replyIndex} className="replyItem">
+                            <p>{reply.content}</p>
+                            <p className="replyDate">
+                              {new Date(reply.createdAt).toLocaleString()}
+                            </p>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
                 </li>
               );
             })
