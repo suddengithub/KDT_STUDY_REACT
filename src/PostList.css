@@ -39,6 +39,9 @@
 
 /* 게시글 항목 스타일 */
 .postItem {
+  display: flex; /* Flexbox를 사용하여 아이템을 가로로 배치 */
+  justify-content: space-between; /* 양옆 끝으로 정렬 */
+  align-items: center; /* 수직 중앙 정렬 */
   padding: 20px;
   border-radius: 10px;
   background-color: #f9f9f9;
@@ -53,8 +56,10 @@
 .postTitle {
   font-size: 24px;
   font-weight: bold;
-  margin: 0 0 10px;
   color: #333;
+  flex-grow: 1; /* 제목이 중앙에 오도록 공간을 차지 */
+  margin: 0;
+  text-align: left; /* 제목을 왼쪽으로 정렬 */
 }
 
 /* 게시글 날짜 스타일 */
@@ -62,6 +67,8 @@
   font-size: 14px;
   color: gray;
   margin: 0;
+  text-align: left; /* 날짜를 왼쪽 정렬 */
+  margin-right: 20px; /* 제목과 적당한 간격을 두기 위해 오른쪽 여백 추가 */
 }
 
 /* 댓글 수 스타일 */
@@ -69,6 +76,7 @@
   font-size: 14px;
   color: #007bff;
   margin-top: 5px;
+  text-align: right; /* 댓글 수는 오른쪽 정렬 */
 }
 
 /* 구분선 스타일 */

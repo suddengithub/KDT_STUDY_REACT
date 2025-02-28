@@ -84,8 +84,10 @@ const PostList = () => {
               onClick={() => handlePostClick(post.postId)}
               className="postItem"
             >
-              <h2 className="postTitle">{post.postTitle}</h2>
-              <p className="postDate">{postDateString}</p>
+              <p className="postDate">{postDateString}</p>{" "}
+              {/* 시간 왼쪽에 배치 */}
+              <h2 className="postTitle">{post.postTitle}</h2>{" "}
+              {/* 제목 가운데 배치 */}
               <p className="commentCount">댓글 {commentCount}개</p>
               <hr className="divider" />
             </li>
