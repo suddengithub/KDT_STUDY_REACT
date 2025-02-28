@@ -67,7 +67,6 @@
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
 }
 
-/* 게시글 번호 스타일 */
 .postNumberContainer {
   flex: 0 0 60px; /* 고정된 크기 */
   text-align: left;
@@ -78,8 +77,10 @@
   font-size: 18px;
   font-weight: bold;
   color: #007bff;
+  white-space: nowrap; /* 글번호가 한 줄로만 표시되도록 설정 */
+  overflow: hidden; /* 넘치는 글번호 숨김 처리 */
+  text-overflow: ellipsis; /* 넘치는 글번호는 "..."으로 처리 */
 }
-
 /* 게시글 제목 스타일 */
 .postTitle {
   font-size: 22px;
