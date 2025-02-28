@@ -91,3 +91,18 @@
   color: #555;
   margin-top: 20px;
 }
+
+/* 댓글과 좋아요 수를 오른쪽에 배치하는 스타일 */
+.interactionCounts {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px; /* 댓글 수와 좋아요 수 간격 */
+}
+
+.commentCount,
+.likeCount {
+  font-size: 14px;
+  color: #007bff;
+  margin: 0;
+}

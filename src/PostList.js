@@ -88,7 +88,10 @@ const PostList = () => {
               {/* 시간 왼쪽에 배치 */}
               <h2 className="postTitle">{post.postTitle}</h2>{" "}
               {/* 제목 가운데 배치 */}
-              <p className="commentCount">댓글 {commentCount}개</p>
+              <div className="interactionCounts">
+                <p className="commentCount">댓글 {commentCount}개</p>
+                <p className="likeCount">좋아요 {post.likesCount}개</p>
+              </div>
               <hr className="divider" />
             </li>
           );
