@@ -31,8 +31,15 @@ const PostList = () => {
       const counts = {};
       for (const post of posts) {
         try {
-          const commentCount = await AxiosApi.getComments(post.postId);
-          counts[post.postId] = commentCount.length;
+          const comments = await AxiosApi.getComments(post.postId);
+
+          // 댓글과 대댓글을 모두 포함한 총 댓글 수 계산
+          const totalComments = comments.reduce(
+            (count, comment) =>
+              count + 1 + (comment.replies ? comment.replies.length : 0),
+            0
+          );
+          counts[post.postId] = totalComments;
         } catch (error) {
           console.error(
             `댓글 수를 불러오는 중 오류 발생: ${post.postId}`,

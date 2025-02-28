@@ -182,6 +182,14 @@ const PostDetail = () => {
     }
   };
 
+  const getTotalCommentCount = () => {
+    return comments.reduce(
+      (count, comment) =>
+        count + 1 + (comment.replies ? comment.replies.length : 0),
+      0
+    );
+  };
+
   if (loading) return <div className="loading">Loading...</div>; // 로딩 상태 표시
 
   if (!post) return <div className="error">게시글을 찾을 수 없습니다.</div>; // 게시글이 없는 경우 처리
@@ -233,7 +241,7 @@ const PostDetail = () => {
       </div>
 
       <div className="commentSection">
-        <h3>댓글 ({comments.length})</h3>
+        <h3>댓글 ({getTotalCommentCount()})</h3>
         <ul className="commentList">
           {comments.length > 0 ? (
             comments.map((comment, index) => {
