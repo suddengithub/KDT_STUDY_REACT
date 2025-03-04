@@ -91,6 +91,12 @@
   margin-top: 20px;
 }
 
+/* 게시물 탭일 때 그리드 1개로 변경 */
+.grid-container.single-grid {
+  grid-template-columns: 1fr; /* 게시물 탭 시 1개로 표시 */
+  gap: 30px;
+}
+
 /* 그리드 항목 */
 .grid-item {
   background-color: white;
@@ -107,6 +113,26 @@
 
 .grid-item p {
   font-size: 1rem;
+  color: #555;
+  line-height: 1.6;
+}
+
+/* 게시물 탭일 때 그리드 1개 항목 스타일 */
+.single-grid-item {
+  background-color: white;
+  border-radius: 10px;
+  padding: 30px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.single-grid-item h3 {
+  font-size: 1.8rem;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.single-grid-item p {
+  font-size: 1.2rem;
   color: #555;
   line-height: 1.6;
 }

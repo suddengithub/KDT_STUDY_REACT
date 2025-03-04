@@ -64,25 +64,28 @@ const ProfileDetail = () => {
       </div>
 
       {/* Grid 영역 */}
-      <div className="grid-container">
+      <div
+        className={`grid-container ${
+          activeTab === "posts" ? "single-grid" : ""
+        }`}
+      >
         {activeTab === "education" && (
-          <div className="grid-item">
-            <h3>학력</h3>
-            {/* 학력 내용 예시 */}
-            <p>{profile.educationContent || "학력 정보가 없습니다."}</p>
-          </div>
-        )}
-
-        {activeTab === "education" && (
-          <div className="grid-item">
-            <h3>경력</h3>
-            {/* 경력 내용 예시 */}
-            <p>{profile.careerContent || "경력 정보가 없습니다."}</p>
-          </div>
+          <>
+            <div className="grid-item">
+              <h3>학력</h3>
+              {/* 학력 내용 예시 */}
+              <p>{profile.educationContent || "학력 정보가 없습니다."}</p>
+            </div>
+            <div className="grid-item">
+              <h3>경력</h3>
+              {/* 경력 내용 예시 */}
+              <p>{profile.careerContent || "경력 정보가 없습니다."}</p>
+            </div>
+          </>
         )}
 
         {activeTab === "posts" && (
-          <div className="grid-item">
+          <div className="single-grid-item">
             <h3>게시물</h3>
             {/* 게시물 내용 예시 */}
             <p>{profile.posts || "게시물이 없습니다."}</p>
