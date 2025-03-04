@@ -1,12 +1,13 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:8111/api/posts";
+const POST_API_URL = "http://localhost:8111/api/posts";
+const PROFILE_API_URL = "http://localhost:8111/api/profiles";
 
 const AxiosApi = {
   // 게시글 목록을 가져오는 함수 (페이지네이션 적용)
   getPosts: async ({ page, size }) => {
     try {
-      const response = await axios.get(API_URL, {
+      const response = await axios.get(POST_API_URL, {
         params: { page: page - 1, size }, // 페이지는 0부터 시작하므로 -1을 해줍니다.
       });
 
@@ -27,7 +28,7 @@ const AxiosApi = {
   // 게시글 저장 함수 (createPost)
   savePost: async (postData) => {
     try {
-      const response = await axios.post(API_URL, postData); // postData 전송
+      const response = await axios.post(POST_API_URL, postData); // postData 전송
       return response.data;
     } catch (error) {
       console.error("Error saving post", error);
@@ -38,7 +39,7 @@ const AxiosApi = {
   // 게시글 ID로 특정 게시글 가져오기
   getPostById: async (postId) => {
     try {
-      const response = await axios.get(`${API_URL}/${postId}`);
+      const response = await axios.get(`${POST_API_URL}/${postId}`);
       return response.data;
     } catch (error) {
       console.error("Error fetching post by ID", error);
@@ -49,7 +50,10 @@ const AxiosApi = {
   // 게시글 수정 함수 (updatePost)
   updatePost: async (postId, updatedData) => {
     try {
-      const response = await axios.put(`${API_URL}/${postId}`, updatedData);
+      const response = await axios.put(
+        `${POST_API_URL}/${postId}`,
+        updatedData
+      );
       if (response.status === 200) {
         console.log("게시글 수정 성공:", response.data);
         return response.data;
@@ -66,7 +70,7 @@ const AxiosApi = {
   // 게시글 삭제 함수
   deletePost: async (postId) => {
     try {
-      const response = await axios.delete(`${API_URL}/${postId}`);
+      const response = await axios.delete(`${POST_API_URL}/${postId}`);
       if (response.status === 204) {
         console.log("게시글 삭제 성공:", postId);
         return { message: "게시글 삭제 성공" };
@@ -84,7 +88,7 @@ const AxiosApi = {
   saveComment: async (postId, commentData) => {
     try {
       const response = await axios.post(
-        `${API_URL}/${postId}/comments`,
+        `${POST_API_URL}/${postId}/comments`,
         commentData
       );
       return response.data; // 댓글 생성 후, 댓글 데이터 반환
@@ -97,7 +101,7 @@ const AxiosApi = {
   // 게시글의 댓글 목록을 가져오는 함수 (대댓글 포함)
   getComments: async (postId) => {
     try {
-      const response = await axios.get(`${API_URL}/${postId}/comments`);
+      const response = await axios.get(`${POST_API_URL}/${postId}/comments`);
       return response.data; // 댓글 목록과 대댓글 목록 반환
     } catch (error) {
       console.error("Error fetching comments", error);
@@ -108,20 +112,23 @@ const AxiosApi = {
   updatePostWithCommentsAndCodeBlocks: async (postId, updatedData) => {
     try {
       // 기존 게시글 수정
-      const postResponse = await axios.put(`${API_URL}/${postId}`, updatedData);
+      const postResponse = await axios.put(
+        `${POST_API_URL}/${postId}`,
+        updatedData
+      );
 
       if (postResponse.status === 200) {
         const updatedPost = postResponse.data;
 
         // 댓글 수 업데이트
         const commentsResponse = await axios.get(
-          `${API_URL}/${postId}/comments`
+          `${POST_API_URL}/${postId}/comments`
         );
         updatedPost.commentCount = commentsResponse.data.length;
 
         // 코드 블록 수 업데이트 (코드 블록 갯수는 서버에서 관리)
         const codeBlockResponse = await axios.get(
-          `${API_URL}/${postId}/codeblocks`
+          `${POST_API_URL}/${postId}/codeblocks`
         );
         updatedPost.codeBlockCount = codeBlockResponse.data.length;
 
@@ -140,7 +147,7 @@ const AxiosApi = {
   // 게시글 좋아요 증가
   likePost: async (postId) => {
     try {
-      const response = await axios.post(`${API_URL}/${postId}/like`);
+      const response = await axios.post(`${POST_API_URL}/${postId}/like`);
       return response.data; // 좋아요 증가 후 게시글 데이터 반환
     } catch (error) {
       console.error("Error liking post", error);
@@ -151,7 +158,7 @@ const AxiosApi = {
   // 게시글 좋아요 취소 (unlike)
   unlikePost: async (postId) => {
     try {
-      const response = await axios.post(`${API_URL}/${postId}/unlike`);
+      const response = await axios.post(`${POST_API_URL}/${postId}/unlike`);
       return response.data; // 좋아요 취소 후 게시글 데이터 반환
     } catch (error) {
       console.error("Error unliking post", error);
@@ -168,7 +175,7 @@ const AxiosApi = {
 
     try {
       const response = await axios.put(
-        `${API_URL}/${postId}/comments/${commentId}`,
+        `${POST_API_URL}/${postId}/comments/${commentId}`,
         commentData
       );
       return response.data; // 수정된 댓글 데이터 반환
@@ -187,7 +194,7 @@ const AxiosApi = {
 
     try {
       const response = await axios.delete(
-        `${API_URL}/${postId}/comments/${commentId}`
+        `${POST_API_URL}/${postId}/comments/${commentId}`
       );
       if (response.status === 204) {
         console.log("댓글 삭제 성공:", commentId);
@@ -205,7 +212,7 @@ const AxiosApi = {
   // 대댓글 저장 함수
   saveReply: async (postId, parentCommentId, replyData) => {
     try {
-      const response = await axios.post(`${API_URL}/${postId}/comments`, {
+      const response = await axios.post(`${POST_API_URL}/${postId}/comments`, {
         ...replyData,
         parentCommentId,
       });
@@ -220,11 +227,44 @@ const AxiosApi = {
   getReplies: async (postId, parentCommentId) => {
     try {
       const response = await axios.get(
-        `${API_URL}/${postId}/comments/${parentCommentId}/replies`
+        `${POST_API_URL}/${postId}/comments/${parentCommentId}/replies`
       );
       return response.data; // 대댓글 목록 반환
     } catch (error) {
       console.error("Error fetching replies", error);
+      throw error;
+    }
+  },
+  // 🔹 프로필 관련 API
+  createProfile: async (profileData) => {
+    try {
+      const response = await axios.post(PROFILE_API_URL, profileData);
+      return response.data;
+    } catch (error) {
+      console.error("Error creating profile", error);
+      throw error;
+    }
+  },
+
+  getProfileById: async (profileId) => {
+    try {
+      const response = await axios.get(`${PROFILE_API_URL}/${profileId}`);
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching profile by ID", error);
+      throw error;
+    }
+  },
+
+  updateProfile: async (profileId, updatedData) => {
+    try {
+      const response = await axios.put(
+        `${PROFILE_API_URL}/${profileId}`,
+        updatedData
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error updating profile", error);
       throw error;
     }
   },
