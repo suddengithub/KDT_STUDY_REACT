@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import AxiosApi from "./AxiosApi";
+import AxiosApiPosts from "./AxiosApiPosts";
 import PostPagination from "./PostPagination"; // PostPagination 추가
 import "./PostList.css"; // CSS 파일을 임포트
 
@@ -12,7 +12,7 @@ const PostList = () => {
 
   // 게시글 목록을 가져오는 함수
   const fetchPosts = (page, pageSize) => {
-    AxiosApi.getPosts({ page, size: pageSize })
+    AxiosApiPosts.getPosts({ page, size: pageSize })
       .then((data) => {
         setPosts(data.posts);
         setTotalElements(data.totalElements);
@@ -32,7 +32,7 @@ const PostList = () => {
       const counts = {};
       for (const post of posts) {
         try {
-          const comments = await AxiosApi.getComments(post.postId);
+          const comments = await AxiosApiPosts.getComments(post.postId);
 
           // 댓글과 대댓글을 모두 포함한 총 댓글 수 계산
           const totalComments = comments.reduce(

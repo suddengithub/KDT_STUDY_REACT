@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Editor } from "@toast-ui/react-editor";
 import "@toast-ui/editor/dist/toastui-editor.css";
-import AxiosApi from "./AxiosApi";
+import AxiosApiPosts from "./AxiosApiPosts";
 import { useNavigate, useParams } from "react-router-dom";
 import "./PostEditor.css";
 
@@ -14,7 +14,7 @@ const PostEditor = () => {
 
   useEffect(() => {
     if (postId) {
-      AxiosApi.getPostById(postId)
+      AxiosApiPosts.getPostById(postId)
         .then((response) => {
           setPostTitle(response.postTitle);
           setCodeBlocks(response.codeBlocks || []);
@@ -86,10 +86,10 @@ const PostEditor = () => {
 
     try {
       if (postId) {
-        await AxiosApi.updatePost(postId, postData);
+        await AxiosApiPosts.updatePost(postId, postData);
         alert("게시글이 수정되었습니다.");
       } else {
-        await AxiosApi.savePost(postData);
+        await AxiosApiPosts.savePost(postData);
         alert("게시글이 저장되었습니다.");
       }
       navigate("/");

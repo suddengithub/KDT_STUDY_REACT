@@ -9,7 +9,7 @@ const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/postlist" element={<PostList />} />{" "}
+        <Route path="/" element={<PostList />} />{" "}
         {/* 게시글 목록 (페이지네이션) */}
         <Route path="/posts/:postId" element={<PostDetail />} />{" "}
         {/* 게시글 상세 보기 */}

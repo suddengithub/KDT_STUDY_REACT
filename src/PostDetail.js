@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import AxiosApi from "./AxiosApi";
+import AxiosApiPosts from "./AxiosApiPosts";
 import "./PostDetail.css"; // CSS 파일 분리
 
 const PostDetail = () => {
@@ -17,11 +17,11 @@ const PostDetail = () => {
   useEffect(() => {
     const fetchPostData = async () => {
       try {
-        const postResponse = await AxiosApi.getPostById(postId);
+        const postResponse = await AxiosApiPosts.getPostById(postId);
         setPost(postResponse);
         setLikesCount(postResponse.likesCount); // 초기 좋아요 개수 설정
 
-        const commentsResponse = await AxiosApi.getComments(postId);
+        const commentsResponse = await AxiosApiPosts.getComments(postId);
         setComments(commentsResponse);
       } catch (error) {
         console.error("게시글을 불러오는 중 오류 발생!", error);
@@ -35,14 +35,14 @@ const PostDetail = () => {
 
   // 좋아요 추가
   const handleLike = () => {
-    AxiosApi.likePost(postId)
+    AxiosApiPosts.likePost(postId)
       .then(() => setLikesCount((prev) => prev + 1)) // UI 즉시 업데이트
       .catch((error) => console.error("좋아요 추가 중 오류 발생!", error));
   };
 
   // 좋아요 취소
   const handleUnlike = () => {
-    AxiosApi.unlikePost(postId)
+    AxiosApiPosts.unlikePost(postId)
       .then(() => setLikesCount((prev) => Math.max(prev - 1, 0))) // 최소 0 이하로 내려가지 않도록 설정
       .catch((error) => console.error("좋아요 취소 중 오류 발생!", error));
   };
@@ -59,7 +59,7 @@ const PostDetail = () => {
 
     const newComment = { content: comment, postId };
 
-    AxiosApi.saveComment(postId, newComment)
+    AxiosApiPosts.saveComment(postId, newComment)
       .then((savedComment) => {
         setComments((prevComments) => [...prevComments, savedComment]);
         setComment("");
@@ -71,7 +71,7 @@ const PostDetail = () => {
   const handleCommentEdit = (commentId, updatedContent) => {
     const updatedComment = { content: updatedContent, postId };
 
-    AxiosApi.updateComment(postId, String(commentId), updatedComment)
+    AxiosApiPosts.updateComment(postId, String(commentId), updatedComment)
       .then((updatedComment) => {
         setComments((prevComments) =>
           prevComments.map((comment) =>
@@ -84,7 +84,7 @@ const PostDetail = () => {
 
   // 댓글 삭제 시
   const handleCommentDelete = (commentId) => {
-    AxiosApi.deleteComment(postId, String(commentId))
+    AxiosApiPosts.deleteComment(postId, String(commentId))
       .then(() => {
         setComments((prevComments) =>
           prevComments.filter((comment) => comment.commentId !== commentId)
@@ -105,7 +105,7 @@ const PostDetail = () => {
 
     const newReply = { content: replyComment, postId, parentCommentId };
 
-    AxiosApi.saveComment(postId, newReply)
+    AxiosApiPosts.saveComment(postId, newReply)
       .then((savedReply) => {
         setComments((prevComments) =>
           prevComments.map((comment) =>
@@ -127,7 +127,7 @@ const PostDetail = () => {
   const handleReplyEdit = (replyId, parentCommentId, updatedContent) => {
     const updatedReply = { content: updatedContent, postId, parentCommentId };
 
-    AxiosApi.updateComment(postId, String(replyId), updatedReply)
+    AxiosApiPosts.updateComment(postId, String(replyId), updatedReply)
       .then((updatedReply) => {
         setComments((prevComments) =>
           prevComments.map((comment) =>
@@ -147,7 +147,7 @@ const PostDetail = () => {
 
   // 대댓글 삭제 시
   const handleReplyDelete = (replyId, parentCommentId) => {
-    AxiosApi.deleteComment(postId, String(replyId))
+    AxiosApiPosts.deleteComment(postId, String(replyId))
       .then(() => {
         setComments((prevComments) =>
           prevComments.map((comment) =>
@@ -173,7 +173,7 @@ const PostDetail = () => {
   // 게시글 삭제 처리
   const handleDelete = () => {
     if (window.confirm("정말로 이 게시글을 삭제하시겠습니까?")) {
-      AxiosApi.deletePost(postId)
+      AxiosApiPosts.deletePost(postId)
         .then(() => {
           alert("게시글이 삭제되었습니다.");
           navigate("/"); // 삭제 후 메인 페이지로 이동

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ReactPaginate from "react-paginate";
-import AxiosApi from "./AxiosApi"; // AxiosApi 임포트
+import AxiosApiPosts from "./AxiosApiPosts"; // AxiosApiPosts 임포트
 import "./PostPagination.css";
 
 const PostPagination = ({ fetchPosts }) => {
@@ -9,7 +9,7 @@ const PostPagination = ({ fetchPosts }) => {
   const pageSize = 6; // 한 페이지당 게시글 수
 
   useEffect(() => {
-    AxiosApi.getPosts({ page, size: pageSize })
+    AxiosApiPosts.getPosts({ page, size: pageSize })
       .then((data) => {
         setTotalPages(data.totalPages);
         fetchPosts(page, pageSize); // 상위 컴포넌트에서 posts 업데이트

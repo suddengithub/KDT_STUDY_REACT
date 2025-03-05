@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom"; // URL 파라미터 가져오기
-import AxiosApi from "./AxiosApi";
+import AxiosApiProfiles from "./AxiosApiProfiles";
 import "./ProfileDetail.css"; // CSS 파일 import
 
 const ProfileDetail = () => {
@@ -14,8 +14,8 @@ const ProfileDetail = () => {
   // fetchProfile 함수가 useEffect 외부에 정의됨
   const fetchProfile = async () => {
     try {
-      // AxiosApi를 사용해 profileId로 프로필 데이터 가져오기
-      const data = await AxiosApi.getProfileById(profileId);
+      // AxiosApiProfiles를 사용해 profileId로 프로필 데이터 가져오기
+      const data = await AxiosApiProfiles.getProfileById(profileId);
       setProfile(data); // 프로필 데이터 상태 업데이트
       setEditedProfileContent(data.profileContent || ""); // 수정된 내용 상태 업데이트
     } catch (error) {
@@ -39,7 +39,9 @@ const ProfileDetail = () => {
 
   const handleSaveClick = () => {
     // 프로필 내용 저장 API 호출 (수정된 프로필 내용 전달)
-    AxiosApi.updateProfile(profileId, { profileContent: editedProfileContent })
+    AxiosApiProfiles.updateProfile(profileId, {
+      profileContent: editedProfileContent,
+    })
       .then(() => {
         setIsEditing(false); // 수정 모드 종료
         fetchProfile(); // 프로필 재로드
