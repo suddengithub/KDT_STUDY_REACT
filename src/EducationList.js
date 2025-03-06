@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import AxiosApiEducations from "./AxiosApiEducations"; // Axios API 호출 파일
 import "./EducationList.css"; // 스타일 적용
 
@@ -13,18 +13,18 @@ const EducationList = ({ profileId }) => {
   });
 
   // 학력 목록 가져오기
-  const fetchEducationList = async () => {
+  const fetchEducationList = useCallback(async () => {
     try {
       const data = await AxiosApiEducations.getEducationList(profileId); // 학력 목록 가져오기
       setEducationList(data);
     } catch (error) {
       console.error("학력을 가져오는 중 오류 발생:", error);
     }
-  };
+  }, [profileId]); // profileId 변경 시에만 호출되도록
 
   useEffect(() => {
     fetchEducationList(); // 학력 목록 가져오기
-  }, [profileId]);
+  }, [fetchEducationList]); // 의존성 배열에 `fetchEducationList` 추가
 
   // 학력 삭제
   const handleDelete = async (educationId) => {
