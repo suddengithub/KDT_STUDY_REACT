@@ -105,8 +105,6 @@ const AxiosApiProfiles = {
     }
   },
 
-  // 기존 코드...
-
   // 학력 목록 조회 (getEducationList 추가)
   getEducationList: async (profileId) => {
     try {

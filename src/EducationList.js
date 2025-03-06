@@ -7,7 +7,7 @@ const EducationList = ({ profileId }) => {
   const [isEditing, setIsEditing] = useState(null); // 수정할 항목의 ID를 추적
   const [newEducation, setNewEducation] = useState({
     degree: "",
-    institution: "",
+    schoolName: "",
     startDate: "",
     endDate: "",
   });
@@ -45,7 +45,7 @@ const EducationList = ({ profileId }) => {
   const handleUpdate = async (educationId) => {
     const updatedData = {
       degree: newEducation.degree,
-      institution: newEducation.institution,
+      schoolName: newEducation.schoolName,
       startDate: newEducation.startDate,
       endDate: newEducation.endDate,
     };
@@ -60,7 +60,7 @@ const EducationList = ({ profileId }) => {
       fetchEducationList(); // 수정 후 목록 다시 가져오기
       setNewEducation({
         degree: "",
-        institution: "",
+        schoolName: "",
         startDate: "",
         endDate: "",
       }); // 입력값 초기화
@@ -73,7 +73,7 @@ const EducationList = ({ profileId }) => {
   const handleAddEducation = async () => {
     if (
       !newEducation.degree ||
-      !newEducation.institution ||
+      !newEducation.schoolName ||
       !newEducation.startDate ||
       !newEducation.endDate
     ) {
@@ -86,7 +86,7 @@ const EducationList = ({ profileId }) => {
       fetchEducationList(); // 추가 후 목록 다시 가져오기
       setNewEducation({
         degree: "",
-        institution: "",
+        schoolName: "",
         startDate: "",
         endDate: "",
       }); // 입력값 초기화
@@ -118,8 +118,8 @@ const EducationList = ({ profileId }) => {
         />
         <input
           type="text"
-          name="institution"
-          value={newEducation.institution}
+          name="schoolName"
+          value={newEducation.schoolName}
           onChange={handleInputChange}
           placeholder="학교"
         />
@@ -152,8 +152,8 @@ const EducationList = ({ profileId }) => {
               />
               <input
                 type="text"
-                name="institution"
-                value={newEducation.institution}
+                name="schoolName"
+                value={newEducation.schoolName}
                 onChange={handleInputChange}
                 placeholder="학교"
               />
@@ -178,7 +178,7 @@ const EducationList = ({ profileId }) => {
           ) : (
             <div>
               <h3>{education.degree}</h3>
-              <p>{education.institution}</p>
+              <p>{education.schoolName}</p>
               <p>
                 {education.startDate} - {education.endDate}
               </p>
