@@ -106,10 +106,10 @@ const ProfileDetail = () => {
     }
   };
 
-  const handleEducationAdd = async () => {
+  const handleEducationCreate = async () => {
     try {
       const newEducationData = { ...newEducation };
-      await AxiosApiProfiles.addEducation(profileId, newEducationData); // 새 학력 추가
+      await AxiosApiProfiles.createEducation(profileId, newEducationData); // 새 학력 추가
       setProfile((prevProfile) => ({
         ...prevProfile,
         educationList: [...prevProfile.educationList, newEducationData],
@@ -260,7 +260,7 @@ const ProfileDetail = () => {
                     })
                   }
                 />
-                <button onClick={handleEducationAdd}>추가</button>
+                <button onClick={handleEducationCreate}>추가</button>
                 <button onClick={() => setIsAddMode(false)}>취소</button>
               </div>
             )}
