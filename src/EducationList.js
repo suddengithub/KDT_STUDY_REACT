@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import AxiosApiProfiles from "./AxiosApiProfiles"; // Axios API 호출 파일
+import AxiosApiEducations from "./AxiosApiEducations"; // Axios API 호출 파일
 import "./EducationList.css"; // 스타일 적용
 
 const EducationList = ({ profileId }) => {
@@ -15,7 +15,7 @@ const EducationList = ({ profileId }) => {
   // 학력 목록 가져오기
   const fetchEducationList = async () => {
     try {
-      const data = await AxiosApiProfiles.getEducationList(profileId); // 학력 목록 가져오기
+      const data = await AxiosApiEducations.getEducationList(profileId); // 학력 목록 가져오기
       setEducationList(data);
     } catch (error) {
       console.error("학력을 가져오는 중 오류 발생:", error);
@@ -29,7 +29,7 @@ const EducationList = ({ profileId }) => {
   // 학력 삭제
   const handleDelete = async (educationId) => {
     try {
-      await AxiosApiProfiles.deleteEducation(profileId, educationId); // 학력 삭제 API 호출
+      await AxiosApiEducations.deleteEducation(profileId, educationId); // 학력 삭제 API 호출
       fetchEducationList(); // 삭제 후 목록 다시 가져오기
     } catch (error) {
       console.error("학력을 삭제하는 중 오류 발생:", error);
@@ -51,7 +51,7 @@ const EducationList = ({ profileId }) => {
     };
 
     try {
-      await AxiosApiProfiles.updateEducation(
+      await AxiosApiEducations.updateEducation(
         profileId,
         educationId,
         updatedData
@@ -82,7 +82,7 @@ const EducationList = ({ profileId }) => {
     }
 
     try {
-      await AxiosApiProfiles.createEducation(profileId, newEducation); // 학력 추가 API 호출
+      await AxiosApiEducations.createEducation(profileId, newEducation); // 학력 추가 API 호출
       fetchEducationList(); // 추가 후 목록 다시 가져오기
       setNewEducation({
         degree: "",
