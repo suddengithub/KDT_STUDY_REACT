@@ -104,6 +104,23 @@ const AxiosApiProfiles = {
       throw error;
     }
   },
+
+  // 기존 코드...
+
+  // 학력 목록 조회 (getEducationList 추가)
+  getEducationList: async (profileId) => {
+    try {
+      const response = await axios.get(
+        `${PROFILE_API_URL}/${profileId}/educations`
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching education list", error);
+      throw error;
+    }
+  },
+
+  // 기존 코드...
 };
 
 export default AxiosApiProfiles;

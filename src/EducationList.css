@@ -1,0 +1,82 @@
+.education-list {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 한 줄에 두 개씩 배치 */
+  gap: 20px; /* 항목들 간의 간격 */
+}
+
+.education-item {
+  background-color: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+/* 학력 추가 폼 */
+.education-add-btn {
+  padding: 12px 20px;
+  font-size: 1.2rem;
+  color: white;
+  background-color: #28a745;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.education-add-btn:hover {
+  background-color: #218838;
+}
+
+.education-add-form input {
+  padding: 12px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  width: 100%;
+  font-size: 1rem;
+}
+
+.education-add-form button {
+  padding: 12px 20px;
+  font-size: 1.2rem;
+  color: white;
+  background-color: #007bff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.education-add-form button:hover {
+  background-color: #0056b3;
+}
+
+.education-edit-btn,
+.education-delete-btn {
+  padding: 8px 16px;
+  font-size: 1rem;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.education-edit-btn {
+  background-color: #ffc107;
+}
+
+.education-delete-btn {
+  background-color: #dc3545;
+}
+
+.education-edit-btn:hover {
+  background-color: #e0a800;
+}
+
+.education-delete-btn:hover {
+  background-color: #c82333;
+}

@@ -1,21 +1,3 @@
-.education-list,
-.career-list {
-  width: 100%;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr); /* 한 줄에 두 개씩 배치 */
-  gap: 20px; /* 항목들 간의 간격 */
-}
-
-.education-item,
-.career-item {
-  background-color: white;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-  display: flex;
-  flex-direction: column;
-}
-
 /* 전체 레이아웃 스타일 */
 .profile-detail-container {
   display: flex;
@@ -157,57 +139,6 @@
   color: white;
   font-weight: bold;
   border-bottom: 2px solid #007bff;
-}
-
-/* 탭 컨텐츠 */
-.tabs-content {
-  width: 100%;
-  max-width: 900px;
-  margin-top: 40px;
-  padding: 20px;
-  background-color: white;
-  border-radius: 12px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-}
-
-/* 학력 및 경력 탭 컨텐츠 */
-.tab-content {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 40px;
-  width: 100%;
-}
-
-.education-career-container {
-  display: flex;
-  justify-content: space-between;
-  gap: 20px;
-  width: 100%;
-}
-
-/* 게시물 리스트 스타일 */
-.posts-content {
-  margin-top: 40px;
-}
-
-.post-item {
-  background-color: white;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px;
-}
-
-.post-item h3 {
-  font-size: 1.5rem;
-  color: #333;
-  margin-bottom: 10px;
-}
-
-.post-item p {
-  font-size: 1.1rem;
-  color: #555;
-  line-height: 1.7;
 }
 
 /* 로딩 표시 */
