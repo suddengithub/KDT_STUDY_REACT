@@ -32,7 +32,8 @@
 
 /* 수정 버튼 */
 .edit-btn {
-  position: absolute;
+  display: flex;
+  justify-content: flex-end; /* 버튼들을 오른쪽 끝으로 정렬 */
   top: 20px;
   right: 20px;
   padding: 12px 20px;
@@ -51,10 +52,8 @@
 
 /* 수정 시 저장 및 취소 버튼 */
 .edit-buttons {
-  position: absolute;
-  top: 20px;
-  right: 20px;
   display: flex;
+  justify-content: flex-end; /* 버튼들을 오른쪽 끝으로 정렬 */
   gap: 10px;
 }
 
