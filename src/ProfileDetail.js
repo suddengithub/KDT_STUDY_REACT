@@ -211,58 +211,6 @@ const ProfileDetail = () => {
         {/* 탭별 콘텐츠 */}
         {activeTab === "education" && (
           <div className="education-tab-content">
-            <div className="education-career-container">
-              <div className="education-list">
-                {profile.educationList.map((education) => (
-                  <div key={education.id} className="education-item">
-                    <h3>{education.degree}</h3>
-                    <p>{education.schoolName}</p>
-                    <p>
-                      {education.startDate} - {education.endDate}
-                    </p>
-                    <div>
-                      {/* 수정 버튼을 클릭하면 해당 학력을 수정할 수 있는 폼이 나타남 */}
-                      <button
-                        className="education-edit-btn"
-                        onClick={() => handleEducationEdit(education.id)}
-                      >
-                        수정
-                      </button>
-                      <button
-                        className="education-delete-btn"
-                        onClick={() => handleEducationDelete(education.id)}
-                      >
-                        삭제
-                      </button>
-                    </div>
-                    {/* 수정 모드일 때 */}
-                    {isEditing && editedEducationContent && (
-                      <div>
-                        <textarea
-                          value={editedEducationContent}
-                          onChange={(e) =>
-                            setEditedEducationContent(e.target.value)
-                          }
-                          rows="3"
-                          style={{
-                            width: "100%",
-                            padding: "10px",
-                            borderRadius: "8px",
-                            fontSize: "1rem",
-                          }}
-                        />
-                        <button
-                          className="education-save-btn"
-                          onClick={() => handleEducationSave(education.id)}
-                        >
-                          저장
-                        </button>
-                      </div>
-                    )}
-                  </div>
-                ))}
-              </div>
-            </div>
             <button
               className="education-add-btn"
               onClick={() => setIsAddMode(true)}
@@ -316,6 +264,58 @@ const ProfileDetail = () => {
                 <button onClick={() => setIsAddMode(false)}>취소</button>
               </div>
             )}
+            <div className="education-career-container">
+              <div className="education-list">
+                {profile.educationList.map((education) => (
+                  <div key={education.id} className="education-item">
+                    <h3>{education.degree}</h3>
+                    <p>{education.schoolName}</p>
+                    <p>
+                      {education.startDate} - {education.endDate}
+                    </p>
+                    <div>
+                      {/* 수정 버튼을 클릭하면 해당 학력을 수정할 수 있는 폼이 나타남 */}
+                      <button
+                        className="education-edit-btn"
+                        onClick={() => handleEducationEdit(education.id)}
+                      >
+                        수정
+                      </button>
+                      <button
+                        className="education-delete-btn"
+                        onClick={() => handleEducationDelete(education.id)}
+                      >
+                        삭제
+                      </button>
+                    </div>
+                    {/* 수정 모드일 때 */}
+                    {isEditing && editedEducationContent && (
+                      <div>
+                        <textarea
+                          value={editedEducationContent}
+                          onChange={(e) =>
+                            setEditedEducationContent(e.target.value)
+                          }
+                          rows="3"
+                          style={{
+                            width: "100%",
+                            padding: "10px",
+                            borderRadius: "8px",
+                            fontSize: "1rem",
+                          }}
+                        />
+                        <button
+                          className="education-save-btn"
+                          onClick={() => handleEducationSave(education.id)}
+                        >
+                          저장
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         )}
       </div>
