@@ -53,7 +53,7 @@ const AxiosApiProfiles = {
 
   // 학력 관련 API
   // 학력 목록 조회
-  getEducations: async (profileId) => {
+  getEducationByProfileId: async (profileId) => {
     try {
       const response = await axios.get(
         `${PROFILE_API_URL}/${profileId}/educations`
@@ -66,7 +66,7 @@ const AxiosApiProfiles = {
   },
 
   // 학력 추가
-  addEducation: async (profileId, educationData) => {
+  createEducation: async (profileId, educationData) => {
     try {
       const response = await axios.post(
         `${PROFILE_API_URL}/${profileId}/educations`,
