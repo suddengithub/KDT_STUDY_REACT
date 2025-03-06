@@ -106,6 +106,39 @@ const EducationList = ({ profileId }) => {
 
   return (
     <div className="education-list">
+      {/* 새로운 학력 추가 */}
+      <div className="add-education-form">
+        <h4>새로운 학력 추가</h4>
+        <input
+          type="text"
+          name="degree"
+          value={newEducation.degree}
+          onChange={handleInputChange}
+          placeholder="학위"
+        />
+        <input
+          type="text"
+          name="institution"
+          value={newEducation.institution}
+          onChange={handleInputChange}
+          placeholder="학교"
+        />
+        <input
+          type="text"
+          name="startDate"
+          value={newEducation.startDate}
+          onChange={handleInputChange}
+          placeholder="시작 날짜"
+        />
+        <input
+          type="text"
+          name="endDate"
+          value={newEducation.endDate}
+          onChange={handleInputChange}
+          placeholder="종료 날짜"
+        />
+        <button onClick={handleAddEducation}>학력 추가</button>
+      </div>
       {educationList.map((education) => (
         <div className="education-item" key={education.id}>
           {isEditing === education.id ? (
@@ -155,40 +188,6 @@ const EducationList = ({ profileId }) => {
           )}
         </div>
       ))}
-
-      {/* 새로운 학력 추가 */}
-      <div className="add-education-form">
-        <h4>새로운 학력 추가</h4>
-        <input
-          type="text"
-          name="degree"
-          value={newEducation.degree}
-          onChange={handleInputChange}
-          placeholder="학위"
-        />
-        <input
-          type="text"
-          name="institution"
-          value={newEducation.institution}
-          onChange={handleInputChange}
-          placeholder="학교"
-        />
-        <input
-          type="text"
-          name="startDate"
-          value={newEducation.startDate}
-          onChange={handleInputChange}
-          placeholder="시작 날짜"
-        />
-        <input
-          type="text"
-          name="endDate"
-          value={newEducation.endDate}
-          onChange={handleInputChange}
-          placeholder="종료 날짜"
-        />
-        <button onClick={handleAddEducation}>학력 추가</button>
-      </div>
     </div>
   );
 };
