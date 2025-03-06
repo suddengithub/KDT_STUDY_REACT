@@ -210,7 +210,7 @@ const ProfileDetail = () => {
 
         {/* 탭별 콘텐츠 */}
         {activeTab === "education" && (
-          <div className="tab-content">
+          <div className="education-tab-content">
             <div className="education-career-container">
               <div className="education-list">
                 {profile.educationList.map((education) => (
@@ -223,13 +223,13 @@ const ProfileDetail = () => {
                     <div>
                       {/* 수정 버튼을 클릭하면 해당 학력을 수정할 수 있는 폼이 나타남 */}
                       <button
-                        className="edit-btn"
+                        className="education-edit-btn"
                         onClick={() => handleEducationEdit(education.id)}
                       >
                         수정
                       </button>
                       <button
-                        className="delete-btn"
+                        className="education-delete-btn"
                         onClick={() => handleEducationDelete(education.id)}
                       >
                         삭제
@@ -252,7 +252,7 @@ const ProfileDetail = () => {
                           }}
                         />
                         <button
-                          className="save-btn"
+                          className="education-save-btn"
                           onClick={() => handleEducationSave(education.id)}
                         >
                           저장
@@ -263,11 +263,14 @@ const ProfileDetail = () => {
                 ))}
               </div>
             </div>
-            <button className="edit-btn" onClick={() => setIsAddMode(true)}>
+            <button
+              className="education-add-btn"
+              onClick={() => setIsAddMode(true)}
+            >
               학력 추가
             </button>
             {isAddMode && (
-              <div className="add-education-form">
+              <div className="education-add-form">
                 <input
                   type="text"
                   placeholder="학위"
