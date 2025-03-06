@@ -100,12 +100,6 @@ const ProfileDetail = () => {
         </div>
         <div className="tabs-container">
           <button
-            className={`tab ${activeTab === "profile" ? "active" : ""}`}
-            onClick={() => handleTabChange("profile")}
-          >
-            프로필
-          </button>
-          <button
             className={`tab ${activeTab === "education" ? "active" : ""}`}
             onClick={() => handleTabChange("education")}
           >
@@ -116,6 +110,12 @@ const ProfileDetail = () => {
             onClick={() => handleTabChange("career")}
           >
             경력
+          </button>
+          <button
+            className={`tab ${activeTab === "profile" ? "active" : ""}`}
+            onClick={() => handleTabChange("profile")}
+          >
+            게시판
           </button>
         </div>
         <div className="tabs-content">
