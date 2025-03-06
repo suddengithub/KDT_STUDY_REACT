@@ -8,7 +8,7 @@ const ProfileDetail = () => {
   const { profileId } = useParams(); // URL 파라미터에서 profileId 가져오기
   const [profile, setProfile] = useState(null); // 프로필 상세 정보 상태
   const [loading, setLoading] = useState(true); // 로딩 상태
-  const [activeTab, setActiveTab] = useState("profile"); // 활성화된 탭 상태
+  const [activeTab, setActiveTab] = useState("education"); // 활성화된 탭 상태
   const [isEditing, setIsEditing] = useState(false); // 수정 모드 활성화 상태
   const [editedProfileContent, setEditedProfileContent] = useState(""); // 수정된 프로필 내용
   const navigate = useNavigate(); // 페이지 이동을 위한 navigate 훅
@@ -112,8 +112,8 @@ const ProfileDetail = () => {
             경력
           </button>
           <button
-            className={`tab ${activeTab === "profile" ? "active" : ""}`}
-            onClick={() => handleTabChange("profile")}
+            className={`tab ${activeTab === "post" ? "active" : ""}`}
+            onClick={() => handleTabChange("post")}
           >
             게시판
           </button>
