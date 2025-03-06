@@ -70,6 +70,12 @@ const ProfileDetail = () => {
           >
             경력
           </div>
+          <div
+            className={`tab ${activeTab === "posts" ? "active" : ""}`}
+            onClick={() => handleTabChange("posts")}
+          >
+            게시물
+          </div>
         </div>
 
         {/* 탭별 콘텐츠 */}
@@ -102,6 +108,20 @@ const ProfileDetail = () => {
                   </div>
                 ))}
               </div>
+            </div>
+          </div>
+        )}
+
+        {activeTab === "posts" && (
+          <div className="tab-content">
+            <div className="posts-list">
+              {/* profile.postsList가 undefined일 때 빈 배열로 처리 */}
+              {(profile.postsList || []).map((post, index) => (
+                <div key={index} className="post-item">
+                  <h3>{post.title}</h3>
+                  <p>{post.content}</p>
+                </div>
+              ))}
             </div>
           </div>
         )}
