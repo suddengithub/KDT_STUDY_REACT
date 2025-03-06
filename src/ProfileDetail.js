@@ -85,7 +85,10 @@ const ProfileDetail = () => {
           <div className="grid-container">
             {profile.educationList.map((education, index) => (
               <div key={index} className="grid-item">
-                <h3>{education.degree}</h3> {/* 학력 Degree 표시 */}
+                <h3>학위 : {education.degree}</h3> {/* 학력 Degree 표시 */}
+                <h3>학교 : {education.schoolName}</h3>
+                <h3>시작일 : {education.startDate}</h3>
+                <h3>종료일 : {education.endDate}</h3>
               </div>
             ))}
           </div>
