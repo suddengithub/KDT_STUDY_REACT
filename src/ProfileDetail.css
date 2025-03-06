@@ -1,3 +1,21 @@
+.education-list,
+.career-list {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 한 줄에 두 개씩 배치 */
+  gap: 20px; /* 항목들 간의 간격 */
+}
+
+.education-item,
+.career-item {
+  background-color: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+
 /* 전체 레이아웃 스타일 */
 .profile-detail-container {
   display: flex;
@@ -165,41 +183,6 @@
   justify-content: space-between;
   gap: 20px;
   width: 100%;
-}
-
-/* 학력과 경력 리스트 */
-.education-list,
-.career-list {
-  width: 48%;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.education-item,
-.career-item {
-  background-color: white;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px;
-  display: flex;
-  flex-direction: column;
-}
-
-.education-item h3,
-.career-item h3 {
-  font-size: 1.6rem;
-  color: #333;
-  margin-bottom: 10px;
-}
-
-.education-item p,
-.career-item p {
-  font-size: 1.1rem;
-  color: #666;
-  line-height: 1.5;
-  word-break: break-word;
 }
 
 /* 게시물 리스트 스타일 */
