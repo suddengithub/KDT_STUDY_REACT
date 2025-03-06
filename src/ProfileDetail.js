@@ -40,16 +40,24 @@ const ProfileDetail = () => {
   return (
     <div className="profile-detail-container">
       <div className="profile-card">
-        <h1 className="profile-title">{profile.profileContent}</h1>
+        {/* 프로필 내용 그리드 */}
+        <div className="profile-grid">
+          <div className="grid-item">
+            <h3>프로필</h3>
+            <p>{profile.profileContent}</p>
+          </div>
+        </div>
+
+        {/* 보유 기술 그리드 */}
+        <div className="profile-grid">
+          <div className="grid-item">
+            <h3>보유 기술</h3>
+            <p>{profile.skillContent}</p>
+          </div>
+        </div>
 
         {/* 탭 컨테이너 */}
         <div className="tabs-container">
-          <div
-            className={`tab ${activeTab === "profile" ? "active" : ""}`}
-            onClick={() => handleTabChange("profile")}
-          >
-            프로필
-          </div>
           <div
             className={`tab ${activeTab === "education" ? "active" : ""}`}
             onClick={() => handleTabChange("education")}
@@ -62,58 +70,39 @@ const ProfileDetail = () => {
           >
             경력
           </div>
-          <div
-            className={`tab ${activeTab === "posts" ? "active" : ""}`}
-            onClick={() => handleTabChange("posts")}
-          >
-            게시글
-          </div>
         </div>
 
-        {/* 프로필 내용 그리드 */}
-        {activeTab === "profile" && (
-          <div className="grid-container">
-            <div className="grid-item">
-              <h3>프로필 내용</h3>
-              <p>{profile.profileContent}</p>
+        {/* 탭별 콘텐츠 */}
+        {activeTab === "education" && (
+          <div className="tab-content">
+            <div className="education-career-container">
+              <div className="education-list">
+                {profile.educationList.map((education, index) => (
+                  <div key={index} className="education-item">
+                    <h3>{education.degree}</h3>
+                    <p>{education.schoolName}</p>
+                    <p>
+                      {education.startDate} - {education.endDate}
+                    </p>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         )}
 
-        {/* 학력 탭 */}
-        {activeTab === "education" && (
-          <div className="grid-container">
-            {profile.educationList.map((education, index) => (
-              <div key={index} className="grid-item">
-                <h3>학위 : {education.degree}</h3> {/* 학력 Degree 표시 */}
-                <h3>학교 : {education.schoolName}</h3>
-                <h3>시작일 : {education.startDate}</h3>
-                <h3>종료일 : {education.endDate}</h3>
-              </div>
-            ))}
-          </div>
-        )}
-
-        {/* 경력 탭 */}
         {activeTab === "career" && (
-          <div className="grid-container">
-            {profile.careerList.map((career, index) => (
-              <div key={index} className="grid-item">
-                <h3>{career.title}</h3>
+          <div className="tab-content">
+            <div className="education-career-container">
+              <div className="career-list">
+                {profile.careerList.map((career, index) => (
+                  <div key={index} className="career-item">
+                    <h3>{career.title}</h3>
+                    <p>{career.companyName}</p>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
-        )}
-
-        {/* 게시글 탭 */}
-        {activeTab === "posts" && (
-          <div className="grid-container single-grid">
-            {profile.postList.map((post, index) => (
-              <div key={index} className="single-grid-item">
-                <h3>{post.title}</h3>
-                <p>{post.content}</p>
-              </div>
-            ))}
+            </div>
           </div>
         )}
       </div>

@@ -25,15 +25,6 @@
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
 }
 
-/* 프로필 타이틀 */
-.profile-title {
-  font-size: 2.4rem;
-  color: #333;
-  margin-bottom: 20px;
-  font-weight: bold;
-  text-align: center;
-}
-
 /* 프로필 콘텐츠 */
 .profile-content {
   font-size: 1.1rem;
@@ -185,4 +176,61 @@
   width: 100%;
   max-width: 900px;
   margin-top: 40px;
+}
+
+/* 학력 및 경력 탭 컨텐츠 */
+.tab-content {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 40px;
+  width: 100%;
+}
+
+/* 학력과 경력 리스트가 좌우로 넓게 표시되도록 수정 */
+.education-career-container {
+  display: flex;
+  width: 100%; /* 부모 컨테이너가 100% 너비 차지하도록 */
+  justify-content: space-between; /* 좌우로 공간을 배분 */
+}
+
+.education-list,
+.career-list {
+  width: 48%; /* 각 박스를 48%로 나누어 여백을 충분히 제공 */
+  display: flex;
+  flex-direction: column; /* 글이 세로로 나열되도록 */
+  gap: 20px; /* 아이템 사이의 간격을 추가 */
+}
+
+.education-item,
+.career-item {
+  background-color: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.education-item h3,
+.career-item h3 {
+  font-size: 1.6rem;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.education-item p,
+.career-item p {
+  font-size: 1.1rem;
+  color: #666;
+  line-height: 1.5;
+  word-break: break-word; /* 긴 텍스트가 줄 바꿈되도록 */
+}
+
+/* 화면 크기에 따라 레이아웃이 반응형으로 적응하도록 수정 */
+@media (max-width: 768px) {
+  .education-list,
+  .career-list {
+    width: 100%; /* 화면 크기가 작을 때 리스트가 가로로 차지하도록 */
+  }
 }
