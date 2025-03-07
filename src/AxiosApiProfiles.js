@@ -50,6 +50,23 @@ const AxiosApiProfiles = {
       throw error;
     }
   },
+
+  // 프로필 삭제
+  deleteProfiile: async (profileId) => {
+    try {
+      const response = await axios.delete(`${PROFILE_API_URL}/${profileId}`);
+      if (response.status === 204) {
+        console.log("게시글 삭제 성공:", profileId);
+        return { message: "게시글 삭제 성공" };
+      } else {
+        console.error("게시글 삭제 실패: 상태 코드", response.status);
+        throw new Error("게시글 삭제 실패");
+      }
+    } catch (error) {
+      console.error("Error deleting post", error);
+      throw error;
+    }
+  },
 };
 
 export default AxiosApiProfiles;
