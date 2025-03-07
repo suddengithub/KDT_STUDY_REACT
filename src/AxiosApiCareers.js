@@ -53,19 +53,6 @@ const AxiosApiCareers = {
       throw error;
     }
   },
-
-  // 경력 목록 조회 (getCareerList 추가)
-  getCareerList: async (profileId) => {
-    try {
-      const response = await axios.get(
-        `${PROFILE_API_URL}/${profileId}/careers`
-      );
-      return response.data;
-    } catch (error) {
-      console.error("Error fetching career list", error);
-      throw error;
-    }
-  },
 };
 
 export default AxiosApiCareers;

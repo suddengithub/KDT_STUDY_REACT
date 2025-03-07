@@ -10,7 +10,7 @@ const CareerList = ({ profileId }) => {
   useEffect(() => {
     const fetchCareers = async () => {
       try {
-        const data = await AxiosApiCareers.getCareerList(profileId);
+        const data = await AxiosApiCareers.getCareerByProfileId(profileId);
         setCareers(data);
       } catch (err) {
         setError(err);

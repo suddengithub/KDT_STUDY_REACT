@@ -15,7 +15,7 @@ const EducationList = ({ profileId }) => {
   // 학력 목록 가져오기
   const fetchEducationList = useCallback(async () => {
     try {
-      const data = await AxiosApiEducations.getEducationList(profileId); // 학력 목록 가져오기
+      const data = await AxiosApiEducations.getEducationByProfileId(profileId); // 학력 목록 가져오기
       setEducationList(data);
     } catch (error) {
       console.error("학력을 가져오는 중 오류 발생:", error);

@@ -16,19 +16,6 @@ const AxiosApiSkills = {
     }
   },
 
-  // 특정 기술 조회
-  getSkillBySkillId: async (profileId, skillId) => {
-    try {
-      const response = await axios.get(
-        `${PROFILE_API_URL}/${profileId}/skills/${skillId}`
-      );
-      return response.data;
-    } catch (error) {
-      console.error("Error fetching skill", error);
-      throw error;
-    }
-  },
-
   // 기술 작성
   createSkill: async (profileId, skill) => {
     try {
