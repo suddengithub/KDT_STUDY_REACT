@@ -32,7 +32,6 @@ const SkillList = ({ profileId }) => {
 
   return (
     <div className="skill-list-container">
-      <h3>기술 목록</h3>
       <div className="skill-cards">
         {skills.map((skill, index) => (
           <div className="skill-card" key={index}>
