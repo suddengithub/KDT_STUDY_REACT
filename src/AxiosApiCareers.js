@@ -2,6 +2,7 @@ import axios from "axios";
 
 const PROFILE_API_URL = "http://localhost:8111/api/profiles";
 
+// 프로필 관련 API(경력)
 const AxiosApiCareers = {
   // 경력 추가
   createCareer: async (profileId, careerData) => {

@@ -2,7 +2,7 @@ import axios from "axios";
 
 const PROFILE_API_URL = "http://localhost:8111/api/profiles";
 
-// 학력 관련 API
+// 프로필 관련 API(학력)
 const AxiosApiEducations = {
   // 학력 추가
   createEducation: async (profileId, educationData) => {

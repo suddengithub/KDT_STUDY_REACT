@@ -2,6 +2,7 @@ import axios from "axios";
 
 const PROFILE_API_URL = "http://localhost:8111/api/profiles";
 
+// 프로필 관련 API(기술)
 const AxiosApiSkills = {
   // 기술 추가
   createSkill: async (profileId, skill) => {

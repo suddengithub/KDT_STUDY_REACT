@@ -2,7 +2,7 @@ import axios from "axios";
 
 const PROFILE_API_URL = "http://localhost:8111/api/profiles";
 
-// 프로필 관련 API
+// 프로필 관련 API(프로필)
 const AxiosApiProfiles = {
   // 프로필 추가
   createProfile: async (profileData) => {

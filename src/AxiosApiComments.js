@@ -2,6 +2,7 @@ import axios from "axios";
 
 const POST_API_URL = "http://localhost:8111/api/posts";
 
+// 게시판 관련 API(댓글)
 const AxiosApiComments = {
   // 댓글 추가
   saveComment: async (postId, commentData) => {
