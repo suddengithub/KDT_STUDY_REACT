@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import AxiosApiProfiles from "./AxiosApiProfiles"; // Axios API 호출 파일
 import { useParams, useNavigate } from "react-router-dom"; // URL 파라미터 받기
 import EducationList from "./EducationList";
+import CareerList from "./CareerList";
 import "./ProfileDetail.css"; // 스타일 적용
 
 const ProfileDetail = () => {
@@ -122,7 +123,9 @@ const ProfileDetail = () => {
           {activeTab === "education" && (
             <EducationList profileId={profileId} /> // EducationList 컴포넌트 추가
           )}
-          {activeTab === "career" && <div>경력 탭 내용</div>}
+          {activeTab === "career" && (
+            <CareerList profileId={profileId} /> // CareerList 컴포넌트 추가
+          )}
         </div>
       </div>
     </div>

@@ -69,8 +69,6 @@ const AxiosApiEducations = {
       throw error;
     }
   },
-
-  // 기존 코드...
 };
 
 export default AxiosApiEducations;
