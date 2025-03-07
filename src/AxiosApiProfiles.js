@@ -52,7 +52,7 @@ const AxiosApiProfiles = {
   },
 
   // 프로필 삭제
-  deleteProfiile: async (profileId) => {
+  deleteProfile: async (profileId) => {
     try {
       const response = await axios.delete(`${PROFILE_API_URL}/${profileId}`);
       if (response.status === 204) {
