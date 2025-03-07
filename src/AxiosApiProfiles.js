@@ -15,7 +15,7 @@ const AxiosApiProfiles = {
     }
   },
 
-  // 프로필 목록 조회
+  // 프로필 조회
   getProfileList: async () => {
     try {
       const response = await axios.get(PROFILE_API_URL); // 전체 프로필 목록을 불러오는 API
