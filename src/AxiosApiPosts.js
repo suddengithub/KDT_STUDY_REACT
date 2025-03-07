@@ -3,7 +3,7 @@ import axios from "axios";
 const POST_API_URL = "http://localhost:8111/api/posts";
 
 const AxiosApiPosts = {
-  // 게시글 목록을 가져오는 함수 (페이지네이션 적용)
+  // 게시글 조회(페이지네이션 적용)
   getPosts: async ({ page, size }) => {
     try {
       const response = await axios.get(POST_API_URL, {
@@ -24,7 +24,7 @@ const AxiosApiPosts = {
     }
   },
 
-  // 게시글 저장 함수 (createPost)
+  // 게시글 추가
   savePost: async (postData) => {
     try {
       const response = await axios.post(POST_API_URL, postData); // postData 전송
@@ -35,7 +35,7 @@ const AxiosApiPosts = {
     }
   },
 
-  // 게시글 ID로 특정 게시글 가져오기
+  // 게시글 특정 조회
   getPostById: async (postId) => {
     try {
       const response = await axios.get(`${POST_API_URL}/${postId}`);
@@ -46,7 +46,7 @@ const AxiosApiPosts = {
     }
   },
 
-  // 게시글 수정 함수 (updatePost)
+  // 게시글 수정
   updatePost: async (postId, updatedData) => {
     try {
       const response = await axios.put(
@@ -66,7 +66,7 @@ const AxiosApiPosts = {
     }
   },
 
-  // 게시글 삭제 함수
+  // 게시글 삭제
   deletePost: async (postId) => {
     try {
       const response = await axios.delete(`${POST_API_URL}/${postId}`);
@@ -83,7 +83,7 @@ const AxiosApiPosts = {
     }
   },
 
-  // 댓글 저장 함수 (createComment)
+  // 댓글 추가
   saveComment: async (postId, commentData) => {
     try {
       const response = await axios.post(

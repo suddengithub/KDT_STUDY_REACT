@@ -26,7 +26,7 @@ const AxiosApiProfiles = {
     }
   },
 
-  // 프로필 조회
+  // 프로필 특정 조회
   getProfileById: async (profileId) => {
     try {
       const response = await axios.get(`${PROFILE_API_URL}/${profileId}`);

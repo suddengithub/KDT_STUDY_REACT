@@ -4,19 +4,6 @@ const PROFILE_API_URL = "http://localhost:8111/api/profiles";
 
 // 학력 관련 API
 const AxiosApiEducations = {
-  // 학력 목록 조회
-  getEducationByProfileId: async (profileId) => {
-    try {
-      const response = await axios.get(
-        `${PROFILE_API_URL}/${profileId}/educations`
-      );
-      return response.data;
-    } catch (error) {
-      console.error("Error fetching educations", error);
-      throw error;
-    }
-  },
-
   // 학력 추가
   createEducation: async (profileId, educationData) => {
     try {
@@ -27,6 +14,19 @@ const AxiosApiEducations = {
       return response.data;
     } catch (error) {
       console.error("Error adding education", error);
+      throw error;
+    }
+  },
+
+  // 학력 목록 조회
+  getEducationByProfileId: async (profileId) => {
+    try {
+      const response = await axios.get(
+        `${PROFILE_API_URL}/${profileId}/educations`
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching educations", error);
       throw error;
     }
   },
