@@ -4,7 +4,7 @@ const PROFILE_API_URL = "http://localhost:8111/api/profiles";
 
 // 프로필 관련 API
 const AxiosApiProfiles = {
-  // 프로필 작성
+  // 프로필 추가
   createProfile: async (profileData) => {
     try {
       const response = await axios.post(PROFILE_API_URL, profileData);

@@ -3,7 +3,7 @@ import axios from "axios";
 const PROFILE_API_URL = "http://localhost:8111/api/profiles";
 
 const AxiosApiSkills = {
-  // 기술 작성
+  // 기술 추가
   createSkill: async (profileId, skill) => {
     try {
       const response = await axios.post(
@@ -16,7 +16,7 @@ const AxiosApiSkills = {
       throw error;
     }
   },
-  // 기술 목록 조회
+  // 기술 조회
   getSkillByProfileId: async (profileId) => {
     try {
       const response = await axios.get(
