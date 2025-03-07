@@ -3,6 +3,8 @@ import AxiosApiProfiles from "./AxiosApiProfiles"; // Axios API 호출 파일
 import { useParams, useNavigate } from "react-router-dom"; // URL 파라미터 받기
 import EducationList from "./EducationList";
 import CareerList from "./CareerList";
+import SkillList from "./SkillList";
+
 import "./ProfileDetail.css"; // 스타일 적용
 
 const ProfileDetail = () => {
