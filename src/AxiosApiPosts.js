@@ -3,6 +3,17 @@ import axios from "axios";
 const POST_API_URL = "http://localhost:8111/api/posts";
 
 const AxiosApiPosts = {
+  // 게시글 추가
+  savePost: async (postData) => {
+    try {
+      const response = await axios.post(POST_API_URL, postData); // postData 전송
+      return response.data;
+    } catch (error) {
+      console.error("Error saving post", error);
+      throw error;
+    }
+  },
+
   // 게시글 조회(페이지네이션 적용)
   getPosts: async ({ page, size }) => {
     try {
@@ -20,17 +31,6 @@ const AxiosApiPosts = {
       };
     } catch (error) {
       console.error("Error fetching posts", error);
-      throw error;
-    }
-  },
-
-  // 게시글 추가
-  savePost: async (postData) => {
-    try {
-      const response = await axios.post(POST_API_URL, postData); // postData 전송
-      return response.data;
-    } catch (error) {
-      console.error("Error saving post", error);
       throw error;
     }
   },
@@ -66,33 +66,6 @@ const AxiosApiPosts = {
     }
   },
 
-  // 게시글 삭제
-  deletePost: async (postId) => {
-    try {
-      const response = await axios.delete(`${POST_API_URL}/${postId}`);
-      if (response.status === 204) {
-        console.log("게시글 삭제 성공:", postId);
-        return { message: "게시글 삭제 성공" };
-      } else {
-        console.error("게시글 삭제 실패: 상태 코드", response.status);
-        throw new Error("게시글 삭제 실패");
-      }
-    } catch (error) {
-      console.error("Error deleting post", error);
-      throw error;
-    }
-  },
-
-  // 게시글의 댓글 목록을 가져오는 함수 (대댓글 포함)
-  getComments: async (postId) => {
-    try {
-      const response = await axios.get(`${POST_API_URL}/${postId}/comments`);
-      return response.data; // 댓글 목록과 대댓글 목록 반환
-    } catch (error) {
-      console.error("Error fetching comments", error);
-      throw error;
-    }
-  },
   // 게시글 수정 시, 기존 댓글 수와 코드 블록 갯수 반영 함수
   updatePostWithCommentsAndCodeBlocks: async (postId, updatedData) => {
     try {
@@ -125,6 +98,23 @@ const AxiosApiPosts = {
       }
     } catch (error) {
       console.error("Error updating post with comments and code blocks", error);
+      throw error;
+    }
+  },
+
+  // 게시글 삭제
+  deletePost: async (postId) => {
+    try {
+      const response = await axios.delete(`${POST_API_URL}/${postId}`);
+      if (response.status === 204) {
+        console.log("게시글 삭제 성공:", postId);
+        return { message: "게시글 삭제 성공" };
+      } else {
+        console.error("게시글 삭제 실패: 상태 코드", response.status);
+        throw new Error("게시글 삭제 실패");
+      }
+    } catch (error) {
+      console.error("Error deleting post", error);
       throw error;
     }
   },

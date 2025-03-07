@@ -17,7 +17,7 @@ const AxiosApiComments = {
     }
   },
 
-  // 게시글의 댓글 목록을 가져오는 함수 (대댓글 포함)
+  // 댓글 조회 (대댓글 포함)
   getComments: async (postId) => {
     try {
       const response = await axios.get(`${POST_API_URL}/${postId}/comments`);
@@ -28,7 +28,7 @@ const AxiosApiComments = {
     }
   },
 
-  // 댓글 수정 함수
+  // 댓글 수정
   updateComment: async (postId, commentId, commentData) => {
     if (!commentId) {
       console.error("Invalid comment ID:", commentId);
@@ -47,7 +47,7 @@ const AxiosApiComments = {
     }
   },
 
-  // 댓글 삭제 함수 (대댓글 포함)
+  // 댓글 삭제 (대댓글 포함)
   deleteComment: async (postId, commentId) => {
     if (!commentId) {
       console.error("Invalid comment ID:", commentId);
@@ -71,7 +71,7 @@ const AxiosApiComments = {
     }
   },
 
-  // 대댓글 저장 함수
+  // 대댓글 추가
   saveReply: async (postId, parentCommentId, replyData) => {
     try {
       const response = await axios.post(`${POST_API_URL}/${postId}/comments`, {
@@ -85,7 +85,7 @@ const AxiosApiComments = {
     }
   },
 
-  // 대댓글 목록 조회 함수
+  // 대댓글 조회
   getReplies: async (postId, parentCommentId) => {
     try {
       const response = await axios.get(
