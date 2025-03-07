@@ -3,7 +3,7 @@ import AxiosApiProfiles from "./AxiosApiProfiles"; // Axios API 호출 파일
 import { useParams, useNavigate } from "react-router-dom"; // URL 파라미터 받기
 import EducationList from "./EducationList";
 import CareerList from "./CareerList";
-import SkillList from "./SkillList";
+import SkillList from "./SkillList"; // SkillList 임포트
 
 import "./ProfileDetail.css"; // 스타일 적용
 
@@ -99,6 +99,11 @@ const ProfileDetail = () => {
             ) : (
               <p>{profile.profileContent}</p>
             )}
+          </div>
+          {/* SkillList 추가 */}
+          <div className="grid-item">
+            <h3>기술 목록</h3>
+            <SkillList profileId={profileId} /> {/* SkillList 컴포넌트 추가 */}
           </div>
         </div>
         <div className="tabs-container">

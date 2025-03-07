@@ -4,7 +4,7 @@ const PROFILE_API_URL = "http://localhost:8111/api/profiles";
 
 const AxiosApiSkills = {
   // 기술 목록 조회
-  getSkillByProfileID: async (profileId) => {
+  getSkillByProfileId: async (profileId) => {
     try {
       const response = await axios.get(
         `${PROFILE_API_URL}/${profileId}/skills`

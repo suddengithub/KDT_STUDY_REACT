@@ -1,0 +1,65 @@
+/* SkillList 전체 스타일 */
+.skill-list-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #f9fafb;
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 12px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.skill-list-container h3 {
+  font-size: 1.8rem;
+  color: #333;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+/* 기술 카드 컨테이너 */
+.skill-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+  width: 100%;
+  margin-top: 20px;
+}
+
+/* 기술 카드 스타일 */
+.skill-card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.skill-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+.skill-name {
+  font-size: 1.4rem;
+  color: #555;
+  font-weight: 600;
+  margin-top: 10px;
+  text-transform: capitalize;
+}
+
+/* 로딩 및 기술이 없는 경우 */
+.loading {
+  font-size: 1.5rem;
+  color: #777;
+  text-align: center;
+}
+
+.no-skills {
+  font-size: 1.5rem;
+  color: #dc3545;
+  text-align: center;
+  font-weight: bold;
+}
