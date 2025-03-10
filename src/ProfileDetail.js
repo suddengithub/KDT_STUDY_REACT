@@ -4,7 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import EducationList from "./EducationList";
 import CareerList from "./CareerList";
 import SkillList from "./SkillList";
-import { FaCopy } from "react-icons/fa"; // URL 복사 아이콘 추가
+import { FaLink } from "react-icons/fa"; // URL 복사 아이콘 추가
 
 import "./ProfileDetail.css";
 
@@ -97,7 +97,7 @@ const ProfileDetail = () => {
           </div>
           {/* URL 복사 버튼 */}
           <button className="copy-url-btn" onClick={copyProfileUrl}>
-            <FaCopy />
+            <FaLink />
           </button>
         </div>
 
