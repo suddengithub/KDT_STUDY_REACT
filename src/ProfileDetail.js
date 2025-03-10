@@ -88,7 +88,6 @@ const ProfileDetail = () => {
         )}
         <div className="profile-grid">
           <div className="grid-item">
-            <h3>프로필 내용</h3>
             {isEditing ? (
               <textarea
                 value={editedProfileContent}
@@ -102,7 +101,7 @@ const ProfileDetail = () => {
           </div>
           {/* SkillList 추가 */}
           <div className="grid-item">
-            <h3>기술 목록</h3>
+            <h3>SKILL</h3>
             <SkillList profileId={profileId} /> {/* SkillList 컴포넌트 추가 */}
           </div>
         </div>
