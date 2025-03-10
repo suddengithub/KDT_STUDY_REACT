@@ -12,6 +12,7 @@ const CareerList = ({ profileId }) => {
     startDate: "",
     endDate: "",
   });
+  const [isFormVisible, setIsFormVisible] = useState(false); // 경력 추가 폼 보이기/숨기기 상태
 
   useEffect(() => {
     const fetchCareers = async () => {
@@ -43,6 +44,7 @@ const CareerList = ({ profileId }) => {
         startDate: "",
         endDate: "",
       }); // 초기화
+      setIsFormVisible(false); // 폼 닫기
     } catch (error) {
       console.error("경력 추가 오류", error);
     }
@@ -90,38 +92,46 @@ const CareerList = ({ profileId }) => {
 
   return (
     <div className="career-list">
-      <div className="add-career-form">
-        <h4>경력 추가</h4>
-        <input
-          type="text"
-          name="companyName"
-          value={newCareer.companyName}
-          onChange={handleInputChange}
-          placeholder="회사명"
-        />
-        <input
-          type="text"
-          name="jobName"
-          value={newCareer.jobName}
-          onChange={handleInputChange}
-          placeholder="직무명"
-        />
-        <input
-          type="date"
-          name="startDate"
-          value={newCareer.startDate}
-          onChange={handleInputChange}
-          placeholder="시작일"
-        />
-        <input
-          type="date"
-          name="endDate"
-          value={newCareer.endDate}
-          onChange={handleInputChange}
-          placeholder="종료일"
-        />
-        <button onClick={handleAddCareer}>경력 추가</button>
+      <div className="add-career">
+        <button onClick={() => setIsFormVisible(!isFormVisible)}>
+          + 경력 추가
+        </button>
       </div>
+
+      {isFormVisible && (
+        <div className="add-career-form">
+          <h4>경력 추가</h4>
+          <input
+            type="text"
+            name="companyName"
+            value={newCareer.companyName}
+            onChange={handleInputChange}
+            placeholder="회사명"
+          />
+          <input
+            type="text"
+            name="jobName"
+            value={newCareer.jobName}
+            onChange={handleInputChange}
+            placeholder="직무명"
+          />
+          <input
+            type="date"
+            name="startDate"
+            value={newCareer.startDate}
+            onChange={handleInputChange}
+            placeholder="시작일"
+          />
+          <input
+            type="date"
+            name="endDate"
+            value={newCareer.endDate}
+            onChange={handleInputChange}
+            placeholder="종료일"
+          />
+          <button onClick={handleAddCareer}>경력 추가</button>
+        </div>
+      )}
 
       {careers.length === 0 ? (
         <p>No careers found</p>

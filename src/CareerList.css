@@ -1,3 +1,23 @@
+/* 경력 추가 버튼 스타일 */
+.add-career {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.add-career button {
+  padding: 10px 20px;
+  background-color: #3498db;
+  color: white;
+  font-size: 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.add-career button:hover {
+  background-color: #2980b9;
+}
+
 /* 경력 추가 폼 스타일 */
 .add-career-form {
   background-color: #f9fafb;
@@ -47,4 +67,53 @@
 
 .career-actions button:hover {
   background-color: #c0392b;
+}
+
+/* 경력 항목 스타일 */
+.career-item {
+  background-color: #fff;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+.career-header h3 {
+  font-size: 1.2rem;
+  margin-bottom: 5px;
+}
+
+.career-header p {
+  font-size: 1rem;
+  color: #666;
+}
+
+.career-dates {
+  font-size: 1rem;
+  margin-top: 10px;
+  color: #333;
+}
+
+.career-item .career-actions button {
+  background-color: #f39c12;
+}
+
+.career-item .career-actions button:hover {
+  background-color: #e67e22;
+}
+
+/* 로딩 중 텍스트 */
+.loading {
+  font-size: 1.5rem;
+  color: #666;
+  text-align: center;
+  margin-top: 20px;
+}
+
+/* 에러 메시지 */
+.error {
+  font-size: 1.5rem;
+  color: #e74c3c;
+  text-align: center;
+  margin-top: 20px;
 }
