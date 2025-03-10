@@ -14,23 +14,29 @@
   flex-direction: column;
 }
 
-/* 학력 추가 폼 */
+/* 학력 추가 버튼 */
 .education-add-btn {
   padding: 12px 20px;
   font-size: 1.2rem;
   color: white;
-  background-color: #28a745;
+  background-color: #007bff;
   border: none;
-  border-radius: 6px;
+  border-radius: 50%;
   cursor: pointer;
   transition: background-color 0.3s;
 }
 
 .education-add-btn:hover {
-  background-color: #218838;
+  background-color: #0056b3;
 }
 
-.education-add-form input {
+/* 학력 추가 폼 */
+.add-education-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.add-education-form input {
   padding: 12px;
   margin-bottom: 10px;
   border: 1px solid #ddd;
@@ -39,7 +45,7 @@
   font-size: 1rem;
 }
 
-.education-add-form button {
+.add-education-form button {
   padding: 12px 20px;
   font-size: 1.2rem;
   color: white;
@@ -50,10 +56,11 @@
   transition: background-color 0.3s;
 }
 
-.education-add-form button:hover {
+.add-education-form button:hover {
   background-color: #0056b3;
 }
 
+/* 수정 및 삭제 버튼 */
 .education-edit-btn,
 .education-delete-btn {
   padding: 8px 16px;
