@@ -6,6 +6,7 @@ const SkillList = ({ profileId }) => {
   const [skills, setSkills] = useState([]); // 기술 목록 상태
   const [loading, setLoading] = useState(true); // 로딩 상태
   const [newSkill, setNewSkill] = useState(""); // 새로운 기술 입력 상태
+  const [isAddingSkill, setIsAddingSkill] = useState(false); // 기술 추가 폼 보이기/숨기기 상태
 
   // 기술 목록 가져오는 함수
   const fetchSkills = async () => {
@@ -27,6 +28,7 @@ const SkillList = ({ profileId }) => {
       const addedSkill = await AxiosApiSkills.createSkill(profileId, skill);
       setSkills([...skills, addedSkill]); // 추가된 기술을 목록에 추가
       setNewSkill(""); // 입력값 초기화
+      setIsAddingSkill(false); // 기술 추가 폼 숨기기
     } catch (error) {
       console.error("기술 추가 중 오류 발생:", error);
     }
@@ -43,6 +45,18 @@ const SkillList = ({ profileId }) => {
   return (
     <div className="skill-list-container">
       <div className="skill-list-header">
+        <h3>SKILL</h3>
+        {/* + 버튼 클릭 시 기술 추가 폼 토글 */}
+        <button
+          className="add-skill-btn"
+          onClick={() => setIsAddingSkill(!isAddingSkill)}
+        >
+          +
+        </button>
+      </div>
+
+      {/* 기술 추가 입력란 */}
+      {isAddingSkill && (
         <div className="add-skill">
           <input
             type="text"
@@ -52,7 +66,7 @@ const SkillList = ({ profileId }) => {
           />
           <button onClick={addSkill}>기술 추가</button>
         </div>
-      </div>
+      )}
 
       <div className="skill-ellipses">
         {skills.map((skill) => (

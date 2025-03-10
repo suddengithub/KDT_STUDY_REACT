@@ -133,7 +133,6 @@ const ProfileDetail = () => {
 
         {/* Skill List */}
         <div className="skill-container">
-          <h3>SKILL</h3>
           <SkillList profileId={profileId} />
         </div>
 
