@@ -13,7 +13,7 @@ const PostList = () => {
 
   // 게시글 목록을 가져오는 함수
   const fetchPosts = (page, pageSize) => {
-    AxiosApiPosts.getPosts({ page, size: pageSize })
+    AxiosApiPosts.getAllPosts({ page, size: pageSize })
       .then((data) => {
         setPosts(data.posts);
         setTotalElements(data.totalElements);

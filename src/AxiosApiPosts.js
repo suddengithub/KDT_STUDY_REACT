@@ -16,7 +16,7 @@ const AxiosApiPosts = {
   },
 
   // 게시글 조회(페이지네이션 적용)
-  getPosts: async ({ page, size }) => {
+  getAllPosts: async ({ page, size }) => {
     try {
       const response = await axios.get(POST_API_URL, {
         params: { page: page - 1, size }, // 페이지는 0부터 시작하므로 -1을 해줍니다.

@@ -9,7 +9,7 @@ const ProfileList = () => {
   // 프로필 목록 가져오는 함수
   const fetchProfiles = async () => {
     try {
-      const data = await AxiosApiProfiles.getProfileList(); // 모든 프로필 가져오기
+      const data = await AxiosApiProfiles.getAllProfiles(); // 모든 프로필 가져오기
       setProfiles(data); // 프로필 목록 상태 업데이트
     } catch (error) {
       console.error("프로필 목록을 가져오는 중 오류 발생:", error);

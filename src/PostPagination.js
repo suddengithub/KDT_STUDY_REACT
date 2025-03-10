@@ -9,7 +9,7 @@ const PostPagination = ({ fetchPosts }) => {
   const pageSize = 6; // 한 페이지당 게시글 수
 
   useEffect(() => {
-    AxiosApiPosts.getPosts({ page, size: pageSize })
+    AxiosApiPosts.getAllPosts({ page, size: pageSize })
       .then((data) => {
         setTotalPages(data.totalPages);
         fetchPosts(page, pageSize); // 상위 컴포넌트에서 posts 업데이트
