@@ -72,10 +72,6 @@ const SkillList = ({ profileId }) => {
     return <div className="loading">기술 목록 로딩 중...</div>; // 로딩 중 표시
   }
 
-  if (skills.length === 0) {
-    return <div className="no-skills">등록된 기술이 없습니다.</div>; // 기술이 없을 경우
-  }
-
   return (
     <div className="skill-list-container">
       <div className="skill-list-header">
@@ -90,38 +86,44 @@ const SkillList = ({ profileId }) => {
         </div>
       </div>
 
-      <div className="skill-cards">
-        {skills.map((skill) => (
-          <div className="skill-card" key={skill.id}>
-            {editingSkill === skill.id ? (
-              <div className="edit-skill">
-                <input
-                  type="text"
-                  value={editedSkillName}
-                  onChange={(e) => setEditedSkillName(e.target.value)}
-                />
-                <button onClick={() => updateSkill(skill.id)}>수정</button>
-                <button onClick={() => setEditingSkill(null)}>취소</button>
-              </div>
-            ) : (
-              <>
-                <div className="skill-name">{skill.skillName}</div>
-                <div className="skill-actions">
-                  <button
-                    onClick={() => {
-                      setEditingSkill(skill.id);
-                      setEditedSkillName(skill.skillName);
-                    }}
-                  >
-                    수정
-                  </button>
-                  <button onClick={() => deleteSkill(skill.id)}>삭제</button>
+      {skills.length === 0 ? (
+        <div className="no-skills-message">
+          등록된 기술이 없습니다. 새로운 기술을 추가하세요.
+        </div>
+      ) : (
+        <div className="skill-cards">
+          {skills.map((skill) => (
+            <div className="skill-card" key={skill.id}>
+              {editingSkill === skill.id ? (
+                <div className="edit-skill">
+                  <input
+                    type="text"
+                    value={editedSkillName}
+                    onChange={(e) => setEditedSkillName(e.target.value)}
+                  />
+                  <button onClick={() => updateSkill(skill.id)}>수정</button>
+                  <button onClick={() => setEditingSkill(null)}>취소</button>
                 </div>
-              </>
-            )}
-          </div>
-        ))}
-      </div>
+              ) : (
+                <>
+                  <div className="skill-name">{skill.skillName}</div>
+                  <div className="skill-actions">
+                    <button
+                      onClick={() => {
+                        setEditingSkill(skill.id);
+                        setEditedSkillName(skill.skillName);
+                      }}
+                    >
+                      수정
+                    </button>
+                    <button onClick={() => deleteSkill(skill.id)}>삭제</button>
+                  </div>
+                </>
+              )}
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };
