@@ -44,38 +44,9 @@ const CareerList = ({ profileId }) => {
         startDate: "",
         endDate: "",
       }); // 초기화
-      setIsFormVisible(false); // 폼 닫기
+      setIsFormVisible(false); // 폼 숨기기
     } catch (error) {
       console.error("경력 추가 오류", error);
-    }
-  };
-
-  const handleUpdateCareer = async (careerId) => {
-    const updatedCareerData = {
-      ...newCareer,
-    };
-    try {
-      const updatedCareer = await AxiosApiCareers.updateCareer(
-        profileId,
-        careerId,
-        updatedCareerData
-      );
-      setCareers(
-        careers.map((career) =>
-          career.id === careerId ? updatedCareer : career
-        )
-      );
-    } catch (error) {
-      console.error("경력 수정 오류", error);
-    }
-  };
-
-  const handleDeleteCareer = async (careerId) => {
-    try {
-      await AxiosApiCareers.deleteCareer(profileId, careerId);
-      setCareers(careers.filter((career) => career.id !== careerId));
-    } catch (error) {
-      console.error("경력 삭제 오류", error);
     }
   };
 
@@ -92,12 +63,18 @@ const CareerList = ({ profileId }) => {
 
   return (
     <div className="career-list">
-      <div className="add-career">
-        <button onClick={() => setIsFormVisible(!isFormVisible)}>
-          + 경력 추가
+      {/* 경력 섹션 헤더 */}
+      <div className="career-list-header">
+        <h3 className="career-title">CAREER</h3>
+        <button
+          className="add-career-btn"
+          onClick={() => setIsFormVisible(!isFormVisible)}
+        >
+          <span className="add-career-icon">+</span>
         </button>
       </div>
 
+      {/* 경력 추가 폼 */}
       {isFormVisible && (
         <div className="add-career-form">
           <h4>경력 추가</h4>
@@ -133,6 +110,7 @@ const CareerList = ({ profileId }) => {
         </div>
       )}
 
+      {/* 경력 목록 */}
       {careers.length === 0 ? (
         <p>No careers found</p>
       ) : (
@@ -146,14 +124,6 @@ const CareerList = ({ profileId }) => {
               <span className="start-date">
                 {career.startDate} - {career.endDate}
               </span>
-            </div>
-            <div className="career-actions">
-              <button onClick={() => handleUpdateCareer(career.id)}>
-                수정
-              </button>
-              <button onClick={() => handleDeleteCareer(career.id)}>
-                삭제
-              </button>
             </div>
           </div>
         ))
