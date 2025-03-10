@@ -80,19 +80,22 @@ const ProfileDetail = () => {
       <div className="profile-card">
         {/* 프로필 상단 정보 (사진, 이름, URL 복사) */}
         <div className="profile-header">
-          <img
-            src={profile.profileImage || "/default-profile.png"} // 기본 프로필 이미지 설정
-            alt="Profile"
-            className="profile-image"
-          />
-          <div className="profile-info">
-            <h2>{profile.name || "사용자 이름"}</h2>
-            {/* 팔로워 / 팔로잉 정보 이동 */}
-            <div className="follow-info">
-              <span>팔로워: {profile.followers || 0}명</span>
-              <span>팔로잉: {profile.following || 0}명</span>
+          <div className="profile-left">
+            <img
+              src={profile.profileImage || "/default-profile.png"} // 기본 프로필 이미지 설정
+              alt="Profile"
+              className="profile-image"
+            />
+            <div className="profile-info">
+              <h2>{profile.name || "사용자 이름"}</h2>
+              {/* 팔로워 / 팔로잉 정보 이동 */}
+              <div className="follow-info">
+                <span>팔로워: {profile.followers || 0}명</span>
+                <span>팔로잉: {profile.following || 0}명</span>
+              </div>
             </div>
           </div>
+          {/* URL 복사 버튼 */}
           <button className="copy-url-btn" onClick={copyProfileUrl}>
             <FaCopy />
           </button>
@@ -115,25 +118,23 @@ const ProfileDetail = () => {
         )}
 
         {/* 프로필 내용 */}
-        <div className="profile-grid">
-          <div className="grid-item">
-            {isEditing ? (
-              <textarea
-                value={editedProfileContent}
-                onChange={(e) => setEditedProfileContent(e.target.value)}
-                rows="4"
-                style={{ width: "100%" }}
-              />
-            ) : (
-              <p>{profile.profileContent}</p>
-            )}
-          </div>
+        <div className="profile-content">
+          {isEditing ? (
+            <textarea
+              value={editedProfileContent}
+              onChange={(e) => setEditedProfileContent(e.target.value)}
+              rows="4"
+              style={{ width: "100%" }}
+            />
+          ) : (
+            <p>{profile.profileContent}</p>
+          )}
+        </div>
 
-          {/* Skill List */}
-          <div className="grid-item">
-            <h3>SKILL</h3>
-            <SkillList profileId={profileId} />
-          </div>
+        {/* Skill List */}
+        <div className="skill-container">
+          <h3>SKILL</h3>
+          <SkillList profileId={profileId} />
         </div>
 
         {/* 탭 메뉴 */}
