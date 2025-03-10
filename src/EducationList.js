@@ -1,207 +1,135 @@
-import React, { useState, useEffect, useCallback } from "react";
-import AxiosApiEducations from "./AxiosApiEducations"; // Axios API 호출 파일
-import "./EducationList.css"; // 스타일 적용
+import React, { useState, useEffect } from "react";
+import AxiosApiEducations from "./AxiosApiEducations";
+import "./EducationList.css";
 
 const EducationList = ({ profileId }) => {
-  const [educationList, setEducationList] = useState([]);
-  const [isEditing, setIsEditing] = useState(null); // 수정할 항목의 ID를 추적
+  const [education, setEducation] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [newEducation, setNewEducation] = useState({
-    degree: "",
     schoolName: "",
+    degree: "",
     startDate: "",
     endDate: "",
   });
-  const [isAddingEducation, setIsAddingEducation] = useState(false); // 학력 추가 폼 표시 여부
-
-  // 학력 목록 가져오기
-  const fetchEducationList = useCallback(async () => {
-    try {
-      const data = await AxiosApiEducations.getEducationByProfileId(profileId); // 학력 목록 가져오기
-      setEducationList(data);
-    } catch (error) {
-      console.error("학력을 가져오는 중 오류 발생:", error);
-    }
-  }, [profileId]); // profileId 변경 시에만 호출되도록
+  const [isFormVisible, setIsFormVisible] = useState(false); // 교육 추가 폼 보이기/숨기기 상태
 
   useEffect(() => {
-    fetchEducationList(); // 학력 목록 가져오기
-  }, [fetchEducationList]); // 의존성 배열에 `fetchEducationList` 추가
-
-  // 학력 삭제
-  const handleDelete = async (educationId) => {
-    try {
-      await AxiosApiEducations.deleteEducation(profileId, educationId); // 학력 삭제 API 호출
-      fetchEducationList(); // 삭제 후 목록 다시 가져오기
-    } catch (error) {
-      console.error("학력을 삭제하는 중 오류 발생:", error);
-    }
-  };
-
-  // 학력 수정
-  const handleEdit = (education) => {
-    setIsEditing(education.id); // 수정할 항목의 ID 설정
-  };
-
-  // 학력 수정 완료
-  const handleUpdate = async (educationId) => {
-    const updatedData = {
-      degree: newEducation.degree,
-      schoolName: newEducation.schoolName,
-      startDate: newEducation.startDate,
-      endDate: newEducation.endDate,
+    const fetchEducation = async () => {
+      try {
+        const data = await AxiosApiEducations.getEducationByProfileId(
+          profileId
+        );
+        setEducation(data);
+      } catch (err) {
+        setError(err);
+      } finally {
+        setLoading(false);
+      }
     };
 
-    try {
-      await AxiosApiEducations.updateEducation(
-        profileId,
-        educationId,
-        updatedData
-      ); // 학력 수정 API 호출
-      setIsEditing(null); // 수정 모드 종료
-      fetchEducationList(); // 수정 후 목록 다시 가져오기
-      setNewEducation({
-        degree: "",
-        schoolName: "",
-        startDate: "",
-        endDate: "",
-      }); // 입력값 초기화
-    } catch (error) {
-      console.error("학력을 수정하는 중 오류 발생:", error);
+    if (profileId) {
+      fetchEducation();
     }
-  };
+  }, [profileId]);
 
-  // 학력 추가
   const handleAddEducation = async () => {
-    if (
-      !newEducation.degree ||
-      !newEducation.schoolName ||
-      !newEducation.startDate ||
-      !newEducation.endDate
-    ) {
-      alert("모든 항목을 입력해주세요.");
-      return;
-    }
-
     try {
-      await AxiosApiEducations.createEducation(profileId, newEducation); // 학력 추가 API 호출
-      fetchEducationList(); // 추가 후 목록 다시 가져오기
+      const newEducationData = await AxiosApiEducations.createEducation(
+        profileId,
+        newEducation
+      );
+      setEducation([...education, newEducationData]);
       setNewEducation({
-        degree: "",
         schoolName: "",
+        degree: "",
         startDate: "",
         endDate: "",
-      }); // 입력값 초기화
-      setIsAddingEducation(false); // 폼 숨기기
+      }); // 초기화
+      setIsFormVisible(false); // 폼 숨기기
     } catch (error) {
-      console.error("학력을 추가하는 중 오류 발생:", error);
+      console.error("교육 추가 오류", error);
     }
   };
 
-  // 입력값 변경 처리
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setNewEducation((prev) => ({
-      ...prev,
+    setNewEducation((prevEducation) => ({
+      ...prevEducation,
       [name]: value,
     }));
   };
 
+  if (loading) return <div className="loading">Loading...</div>;
+  if (error) return <div className="error">Error fetching education</div>;
+
   return (
     <div className="education-list">
-      {/* 학력 추가 버튼 */}
-      <button
-        className="education-add-btn"
-        onClick={() => setIsAddingEducation(!isAddingEducation)}
-      >
-        {isAddingEducation ? "취소" : "+"}
-      </button>
+      {/* 교육 섹션 헤더 */}
+      <div className="education-list-header">
+        <h3 className="education-title">EDUCATION</h3>
+        <button
+          className="add-education-btn"
+          onClick={() => setIsFormVisible(!isFormVisible)}
+        >
+          <span className="add-education-icon">+</span>
+        </button>
+      </div>
 
-      {/* 새로운 학력 추가 폼 */}
-      {isAddingEducation && (
+      {/* 교육 추가 폼 */}
+      {isFormVisible && (
         <div className="add-education-form">
-          <h4>새로운 학력 추가</h4>
-          <input
-            type="text"
-            name="degree"
-            value={newEducation.degree}
-            onChange={handleInputChange}
-            placeholder="학위"
-          />
+          <h4>교육 추가</h4>
           <input
             type="text"
             name="schoolName"
             value={newEducation.schoolName}
             onChange={handleInputChange}
-            placeholder="학교"
+            placeholder="학교명"
+          />
+          <input
+            type="text"
+            name="degree"
+            value={newEducation.degree}
+            onChange={handleInputChange}
+            placeholder="학위명"
           />
           <input
             type="date"
             name="startDate"
             value={newEducation.startDate}
             onChange={handleInputChange}
-            placeholder="시작 날짜"
+            placeholder="시작일"
           />
           <input
             type="date"
             name="endDate"
             value={newEducation.endDate}
             onChange={handleInputChange}
-            placeholder="종료 날짜"
+            placeholder="종료일"
           />
-          <button onClick={handleAddEducation}>학력 추가</button>
+          <button onClick={handleAddEducation}>교육 추가</button>
         </div>
       )}
 
-      {/* 학력 목록 표시 */}
-      {educationList.map((education) => (
-        <div className="education-item" key={education.id}>
-          {isEditing === education.id ? (
-            <div>
-              <input
-                type="text"
-                name="degree"
-                value={newEducation.degree}
-                onChange={handleInputChange}
-                placeholder="학위"
-              />
-              <input
-                type="text"
-                name="schoolName"
-                value={newEducation.schoolName}
-                onChange={handleInputChange}
-                placeholder="학교"
-              />
-              <input
-                type="date"
-                name="startDate"
-                value={newEducation.startDate}
-                onChange={handleInputChange}
-                placeholder="시작 날짜"
-              />
-              <input
-                type="date"
-                name="endDate"
-                value={newEducation.endDate}
-                onChange={handleInputChange}
-                placeholder="종료 날짜"
-              />
-              <button onClick={() => handleUpdate(education.id)}>
-                수정 완료
-              </button>
+      {/* 교육 목록 */}
+      {education.length === 0 ? (
+        <p>No education found</p>
+      ) : (
+        education.map((edu) => (
+          <div key={edu.id} className="education-item">
+            <div className="education-header">
+              <h3>{edu.schoolName}</h3>
+              <p>{edu.degree}</p>
             </div>
-          ) : (
-            <div>
-              <h3>{education.degree}</h3>
-              <p>{education.schoolName}</p>
-              <p>
-                {education.startDate} - {education.endDate}
-              </p>
-              <button onClick={() => handleEdit(education)}>수정</button>
-              <button onClick={() => handleDelete(education.id)}>삭제</button>
+            <div className="education-dates">
+              <span className="start-date">
+                {edu.startDate} - {edu.endDate}
+              </span>
             </div>
-          )}
-        </div>
-      ))}
+          </div>
+        ))
+      )}
     </div>
   );
 };
