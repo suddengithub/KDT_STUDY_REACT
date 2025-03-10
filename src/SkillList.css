@@ -1,143 +1,94 @@
-/* 기술 목록 헤더 */
+/* 전체 컨테이너 */
+.skill-list-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #f7f7f7;
+  padding: 30px;
+  margin-top: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* 헤더: 기술 추가 입력창 */
 .skill-list-header {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   width: 100%;
   margin-bottom: 20px;
 }
 
 .add-skill input {
-  padding: 8px;
-  font-size: 1rem;
-  margin-right: 10px;
-  width: 200px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
+  padding: 10px;
+  font-size: 1.1rem;
+  width: 250px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #fff;
+  color: #333;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .add-skill button {
-  padding: 8px 16px;
-  background-color: #007bff;
+  padding: 10px 18px;
+  background-color: #000;
   color: white;
   border: none;
-  border-radius: 6px;
+  border-radius: 5px;
+  margin-left: 10px;
   cursor: pointer;
 }
 
 .add-skill button:hover {
-  background-color: #0056b3;
+  background-color: #333;
 }
 
-/* 기술 카드의 수정, 삭제 버튼 */
-.skill-actions {
+/* 기술 타원형 목록 */
+.skill-ellipses {
   display: flex;
-  justify-content: space-around;
-  margin-top: 10px;
-}
-
-.skill-actions button {
-  padding: 6px 12px;
-  background-color: #ffc107;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-.skill-actions button:hover {
-  background-color: #e0a800;
-}
-
-/* 수정 상태의 스타일 */
-.edit-skill input {
-  padding: 8px;
-  font-size: 1rem;
-  margin-right: 10px;
-  width: 200px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-}
-
-.edit-skill button {
-  padding: 8px 16px;
-  background-color: #28a745;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-.edit-skill button:hover {
-  background-color: #218838;
-}
-
-/* 기존 스타일 유지 */
-.skill-list-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: #f9fafb;
-  padding: 20px;
-  margin-top: 20px;
-  border-radius: 12px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-}
-
-.skill-cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
   width: 100%;
   margin-top: 20px;
 }
 
-.skill-card {
-  background-color: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-  padding: 20px;
+/* 기술 타원형 스타일 */
+.skill-ellipse {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 140px;
+  height: 70px;
+  border-radius: 40px; /* 타원형을 위해 수정 */
+  background-color: #000;
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: bold;
   text-align: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  cursor: pointer;
-}
-
-.skill-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
-}
-
-.skill-name {
-  font-size: 1.4rem;
-  color: #555;
-  font-weight: 600;
-  margin-top: 10px;
   text-transform: capitalize;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
 
+.skill-ellipse:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* 로딩 중 텍스트 */
 .loading {
   font-size: 1.5rem;
-  color: #777;
+  color: #666;
   text-align: center;
-}
-
-.no-skills-message {
-  font-size: 1.5rem;
-  color: #007bff;
-  text-align: center;
-  font-weight: bold;
   margin-top: 20px;
 }
 
-.no-skills-message button {
-  padding: 8px 16px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-.no-skills-message button:hover {
-  background-color: #0056b3;
+/* 기술이 없을 때 보여줄 메시지 */
+.no-skills-message {
+  font-size: 1.5rem;
+  color: #333;
+  text-align: center;
+  font-weight: bold;
+  margin-top: 20px;
 }
